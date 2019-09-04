@@ -1,0 +1,50 @@
+<h1 class="title">Crear cuenta</h1>
+
+<hr>
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">Nombre</label>
+    </div>
+
+    <div class="field-body">
+        <p class="control has-icons-left">
+            <input class="input" type="text" min=1>
+            <span class="icon is-small is-left">
+                <i>
+                    <fa-icon [icon]="faDollarSign"></fa-icon>
+                </i>
+            </span>
+        </p>
+    </div>
+</div>
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">Tipo</label>
+    </div>
+
+    <div class="field-body">
+        <div class="control">
+            <label class="radio">
+                <input type="radio" name="tipo_c">
+                Activo
+            </label>
+            <label class="radio">
+                <input type="radio" name="tipo_c">
+                Pasivo
+            </label>
+        </div>
+    </div>
+</div>
+
+<div class="has-text-centered">
+    <a class="button is-medium is-primary">
+        <span class="icon is-small is-left">
+            <i>
+                <fa-icon [icon]="faSave"></fa-icon>
+            </i>
+        </span>
+        <span>Crear</span>
+    </a>
+</div>
