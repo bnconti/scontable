@@ -8,13 +8,16 @@
     </div>
 
     <div class="field-body">
-        <div class="select">
-            <select>
-                <option>Seleccione</option>
-                <option>Proveedores</option>
-                <option>Caja</option>
-            </select>
+        <div class="field">
+            <div class="select">
+                <select>
+                    <option>Seleccione</option>
+                    <option>Proveedores</option>
+                    <option>Caja</option>
+                </select>
+            </div>
         </div>
+
     </div>
 </div>
 
@@ -24,14 +27,16 @@
     </div>
 
     <div class="field-body">
-        <p class="control has-icons-left">
-            <input class="input" type="text" min=1>
-            <span class="icon is-small is-left">
-                <i>
-                    <fa-icon [icon]="faDollarSign"></fa-icon>
-                </i>
-            </span>
-        </p>
+        <div class="field">
+            <p class="control has-icons-left">
+                <input class="input" type="text" min=1>
+                <span class="icon is-small is-left">
+                    <i>
+                        <fa-icon [icon]="faDollarSign"></fa-icon>
+                    </i>
+                </span>
+            </p>
+        </div>
     </div>
 </div>
 
@@ -41,14 +46,17 @@
     </div>
 
     <div class="field-body">
-        <p class="control has-icons-left">
-            <input class="input" type="date">
-            <span class="icon is-small is-left">
-                <i>
-                    <fa-icon [icon]="faCalendar"></fa-icon>
-                </i>
-            </span>
-        </p>
+        <div class="field">
+            <p class="control has-icons-left">
+                <input class="input" type="date" [value]="fechaHoy" min="2010-01-01">
+                <span class="icon is-small is-left">
+                    <i>
+                        <fa-icon [icon]="faCalendar"></fa-icon>
+                    </i>
+                </span>
+            </p>
+        </div>
+
     </div>
 
 </div>
@@ -59,15 +67,17 @@
     </div>
 
     <div class="field-body">
-        <div class="control">
-            <label class="radio">
-                <input type="radio" name="tipo_t">
-                Debe
-            </label>
-            <label class="radio">
-                <input type="radio" name="tipo_t">
-                Haber
-            </label>
+        <div class="field">
+            <div class="control">
+                <label class="radio">
+                    <input type="radio" name="tipo_t">
+                    Debe
+                </label>
+                <label class="radio">
+                    <input type="radio" name="tipo_t">
+                    Haber
+                </label>
+            </div>
         </div>
     </div>
 </div>

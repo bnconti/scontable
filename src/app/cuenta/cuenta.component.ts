@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { faSave, faCheck } from '@fortawesome/free-solid-svg-icons';
 
+import { Cuenta } from './cuenta.model';
+
 
 @Component({
   selector: 'app-cuenta',
@@ -14,6 +16,6 @@ export class CuentaComponent implements OnInit {
   ngOnInit() {
   }
 
-  faSave = faSave;
+  faSave = faSave; // Ícono de guardado.
 
 }

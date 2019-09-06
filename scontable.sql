@@ -3,6 +3,7 @@
 
 CREATE TABLE cuenta (
     idcuenta SERIAL PRIMARY KEY,
+    nro INT NOT NULL,
     nombre VARCHAR(45) NOT NULL UNIQUE,
     tipo VARCHAR(45) NOT NULL CHECK (tipo IN('Activo', 'Pasivo'))
 );
@@ -16,9 +17,15 @@ CREATE TABLE usuario (
 
 CREATE TABLE asiento (
     idasiento SERIAL PRIMARY KEY,
+    idusuario INT NOT NULL REFERENCES usuario(idusuario),    
+    fecha DATE NOT NULL
+);
+
+CREATE TABLE movimiento (
+    idmovimiento INT NOT NULL,
+    idasiento INT NOT NULL REFERENCES asiento(idasiento),
+    PRIMARY KEY(idmovimiento, idasiento),
     idcuenta INT NOT NULL REFERENCES cuenta(idcuenta),
-    idusuario INT NOT NULL REFERENCES usuario(idusuario),
-    tipo VARCHAR(45) NOT NULL CHECK (tipo IN('Debe', 'Haber')),
     monto NUMERIC NOT NULL,
-    fecha_transaccion DATE NOT NULL
+    tipo VARCHAR(45) NOT NULL CHECK (tipo IN('Debe', 'Haber'))
 );

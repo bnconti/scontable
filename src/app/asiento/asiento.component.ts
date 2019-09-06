@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faDollarSign, faCalendar, faSave, faCheck } from '@fortawesome/free-solid-svg-icons';
 
-
 @Component({
   selector: 'app-asiento',
   templateUrl: './asiento.component.html',
@@ -19,6 +18,6 @@ export class AsientoComponent implements OnInit {
   faSave = faSave;
   faCheck = faCheck;
 
-  // document.getElementById('datePicker').value = new Date().toDateInputValue();
+  fechaHoy = new Date().toISOString().substring(0, 10);
 
 }
