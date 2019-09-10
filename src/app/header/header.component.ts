@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  modalActivo: boolean = false;
+
   constructor() { }
 
   ngOnInit() {
+  }
+  
+  toggleModal() {
+    this.modalActivo = !this.modalActivo;
   }
 
 }

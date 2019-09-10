@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { faDollarSign, faCalendar, faSave, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -8,16 +9,19 @@ import { faDollarSign, faCalendar, faSave, faCheck } from '@fortawesome/free-sol
 })
 export class AsientoComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
   faDollarSign = faDollarSign;
   faCalendar = faCalendar;
   faSave = faSave;
   faCheck = faCheck;
 
   fechaHoy = new Date().toISOString().substring(0, 10);
+
+  /* -------------------- */
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+ 
 
 }

@@ -1,4 +1,4 @@
-<nav class="navbar has-shadow is-spaced" role="navigation" aria-label="main navigation">
+<nav class="navbar has-shadow is-spaced has-background-dark" role="navigation" aria-label="main navigation">
   <div class="container">
     <div class="navbar-brand">
       <a class="navbar-item" href="">
@@ -21,7 +21,7 @@
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="buttons">
-            <a class="button is-primary">
+            <a class="button is-info">
               <strong>Registrarse</strong>
             </a>
             <a class="button is-light">
@@ -33,3 +33,22 @@
     </div>
   </div>
 </nav>
+
+<div class="modal" [ngClass]="{ 'is-active' : modalActivo }">
+  <div class="modal-background" (click)="toggleModal()"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Sobre</p>
+      <button class="delete" aria-label="close" (click)="toggleModal()"></button>
+    </header>
+    <section class="modal-card-body">
+      <p>
+        Sistema web creado por alumnos de la <a href="http://www.unnoba.edu.ar">UNNOBA</a> para la materia
+        <strong>Sistemas Administrativos II</strong>.
+      </p>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-success" (click)="toggleModal()">OK</button>
+    </footer>
+  </div>
+</div>

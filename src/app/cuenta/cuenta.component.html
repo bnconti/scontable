@@ -9,8 +9,13 @@
 
     <div class="field-body">
         <div class="field">
-            <p class="control">
-                <input class="input" type="text">
+            <p class="control has-icons-left">
+                <input class="input" type="text" name="nombre">
+                <span class="icon is-small is-left">
+                    <i>
+                        <fa-icon [icon]="faScroll"></fa-icon>
+                    </i>
+                </span>
             </p>
         </div>
     </div>
@@ -36,13 +41,41 @@
     </div>
 </div>
 
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">Monto inicial</label>
+    </div>
+
+    <div class="field-body">
+        <div class="field">
+            <p class="control has-icons-left">
+                <input class="input" type="text" min=1>
+                <span class="icon is-small is-left">
+                    <i>
+                        <fa-icon [icon]="faDollarSign"></fa-icon>
+                    </i>
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<hr>
+
 <div class="has-text-centered">
-    <a class="button is-medium is-primary">
+    <button (click)="agregarCuenta" class="button is-medium is-info" type="submit">
         <span class="icon is-small is-left">
             <i>
                 <fa-icon [icon]="faSave"></fa-icon>
             </i>
         </span>
         <span>Crear</span>
-    </a>
+    </button>
 </div>
+
+<hr>
+
+<ul>
+    <li *ngFor="let cuenta of cuentas">{{ cuenta.nombre }}</li>
+</ul>

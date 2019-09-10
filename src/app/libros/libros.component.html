@@ -1,0 +1,25 @@
+<h1 class="title">Seleccione un libro o cuenta</h1>
+
+<hr>
+
+<div class="tabs is-boxed">
+    <ul>
+        <li class="is-active"><a>Libro mayor</a></li>
+        <li><a>Libro diario</a></li>
+        <!-- Agregar un ngFor que genere una pestaña por cada cuenta en la BD -->
+    </ul>
+</div>
+
+<!-- Formato tentativo a utilizar por las tablas, debería ir en cada componente y no acá -->
+<div class="table-container">
+    <table class="table is-fullwidth is-hoverable is-bordered">
+        <th>N.º</th>
+        <th>Fecha</th>
+
+        <!-- Para un N.º y fecha de transacción puede haber distintas cuentas con sus montos... -->
+        <!-- Tabla dentro de otra tabla? -->
+        <th>Cuenta</th>
+        <th><abbr title="Debe">D</abbr></th>
+        <th><abbr title="Haber">H</abbr></th>
+    </table>
+</div>
