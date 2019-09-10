@@ -1,0 +1,11 @@
+.footer {
+    background-color: cadetblue;
+    padding: 1rem;
+
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    padding: 0.5rem;
+    text-align: center;
+
+}
