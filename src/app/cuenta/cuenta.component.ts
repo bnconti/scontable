@@ -3,8 +3,7 @@ import { FormControl } from '@angular/forms';
 
 import { faSave, faCheck, faDollarSign, faScroll } from '@fortawesome/free-solid-svg-icons';
 
-import { Cuenta } from './cuenta.model';
-
+// import { Cuenta } from './cuenta.model';
 
 @Component({
   selector: 'app-cuenta',
@@ -14,11 +13,11 @@ import { Cuenta } from './cuenta.model';
 export class CuentaComponent implements OnInit {
 
   // Reemplazar esto por tabla en BD.
-  private cuentas: Array<Cuenta> = [
+/*   private cuentas: Array<Cuenta> = [
     new Cuenta('Caja chica', 'Activo', 5000),
     new Cuenta('Proveedores', 'Pasivos', 0)
   ];
-
+ */
   constructor() { }
 
   ngOnInit() {
@@ -31,10 +30,10 @@ export class CuentaComponent implements OnInit {
 
   /* -------------------- */
 
-  agregarCuenta(nombre: string, tipo: string, monto: number = 0) {
+/*   agregarCuenta(nombre: string, tipo: string, monto: number = 0) {
     let temp = new Cuenta(nombre, tipo, monto);
     this.cuentas.push(temp);
   }
-
+ */
 
 }

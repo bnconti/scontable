@@ -34,7 +34,7 @@ const appRoutes: Routes = [
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      { enableTracing: false } // <-- Poner en true para loguear el trace en consola
     ),
     BrowserModule,
     FontAwesomeModule,
