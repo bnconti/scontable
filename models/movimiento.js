@@ -1,6 +1,3 @@
-const Sequelize = require('sequelize');
-const Model = Sequelize.Model;
-
 module.exports = (sequelize, type) => {
   return sequelize.define('movimiento', {
     id: {
@@ -9,25 +6,27 @@ module.exports = (sequelize, type) => {
       autoIncrement: true,
       allowNull: false,
     },
-/*   id_asiento: {
-    type: type.INTEGER,
-    allowNull: false,
-    references: {
-      model: asiento,
-      key: 'id',
-      deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
-    }
-  },
-  id_cuenta: {
-    type: type.INTEGER,
-    allowNull: false,
-    references: {
-      model: cuenta,
-      key: 'id',
-      deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
-    }
-  },
- */  comentario: {
+    /*
+    id_asiento: {
+      type: type.INTEGER,
+      allowNull: false,
+      references: {
+        model: asiento,
+        key: 'id',
+        deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+      }
+    },
+    id_cuenta: {
+      type: type.INTEGER,
+      allowNull: false,
+      references: {
+        model: cuenta,
+        key: 'id',
+        deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+      }
+    },
+    */
+    comentario: {
       type: type.TEXT,
       allowNull: false,
     },

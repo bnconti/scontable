@@ -1,6 +1,3 @@
-const Sequelize = require('sequelize');
-const Model = Sequelize.Model;
-
 module.exports = (sequelize, type) => {
   return sequelize.define('usuario', {
     id: {

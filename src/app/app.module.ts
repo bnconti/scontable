@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { Router, RouterModule, Routes } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -14,7 +15,7 @@ import { LibroDiarioComponent } from './libros/libro-diario/libro-diario.compone
 import { LibroMayorComponent } from './libros/libro-mayor/libro-mayor.component';
 import { Error404Component } from './error404/error404.component';
 
-const appRoutes: Routes = [  
+const appRoutes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: '**', component: Error404Component }
 ];
@@ -37,6 +38,7 @@ const appRoutes: Routes = [
       { enableTracing: false } // <-- Poner en true para loguear el trace en consola
     ),
     BrowserModule,
+    FormsModule,
     FontAwesomeModule,
   ],
   providers: [],
@@ -44,5 +46,5 @@ const appRoutes: Routes = [
 })
 export class AppModule {
   constructor(router: Router) {
-  }  
- }
+  }
+}

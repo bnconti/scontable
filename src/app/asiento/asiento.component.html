@@ -2,82 +2,61 @@
 
 <hr>
 
-<div class="field is-horizontal">
-    <div class="field-label is-normal">
-        <label class="label">Cuenta</label>
-    </div>
-
-    <div class="field-body">
-        <div class="field">
-            <div class="select">
-                <select>
-                    <option>Seleccione</option>
-                    
-                </select>
-            </div>
+<div class="field">
+    <label class="label">Cuenta</label>
+    <div class="control has-icons-left">
+        <div class="select is-fullwidth">
+            <select>
+                <option>Seleccione</option>
+                <option *ngFor="let cuenta of cuentas">
+                    {{ cuenta.nombre }} (${{ cuenta.monto }})
+                </option>
+            </select>
         </div>
-
+        <span class="icon is-small is-left">
+            <i>
+                <fa-icon [icon]="faFolderOpen"></fa-icon>
+            </i>
+        </span>
     </div>
 </div>
 
-<div class="field is-horizontal">
-    <div class="field-label is-normal">
-        <label class="label">Monto</label>
-    </div>
+<div class="field">
+    <label class="label">Monto</label>
 
-    <div class="field-body">
-        <div class="field">
-            <p class="control has-icons-left">
-                <input class="input" type="text" min=1>
-                <span class="icon is-small is-left">
-                    <i>
-                        <fa-icon [icon]="faDollarSign"></fa-icon>
-                    </i>
-                </span>
-            </p>
-        </div>
+    <div class="control has-icons-left">
+        <input class="input" type="text" min=1>
+        <span class="icon is-small is-left">
+            <i>
+                <fa-icon [icon]="faDollarSign"></fa-icon>
+            </i>
+        </span>
     </div>
 </div>
 
-<div class="field is-horizontal">
-    <div class="field-label is-normal">
-        <label class="label">Fecha</label>
+<div class="field">
+    <label class="label">Fecha</label>
+    <div class="control has-icons-left">
+        <input class="input" type="date" [value]="fechaHoy" min="2010-01-01">
+        <span class="icon is-small is-left">
+            <i>
+                <fa-icon [icon]="faCalendar"></fa-icon>
+            </i>
+        </span>
     </div>
-
-    <div class="field-body">
-        <div class="field">
-            <p class="control has-icons-left">
-                <input class="input" type="date" [value]="fechaHoy" min="2010-01-01">
-                <span class="icon is-small is-left">
-                    <i>
-                        <fa-icon [icon]="faCalendar"></fa-icon>
-                    </i>
-                </span>
-            </p>
-        </div>
-
-    </div>
-
 </div>
 
-<div class="field is-horizontal">
-    <div class="field-label is-normal">
-        <label class="label">Tipo</label>
-    </div>
-
-    <div class="field-body">
-        <div class="field">
-            <div class="control">
-                <label class="radio">
-                    <input type="radio" name="tipo_t">
-                    Debe
-                </label>
-                <label class="radio">
-                    <input type="radio" name="tipo_t">
-                    Haber
-                </label>
-            </div>
-        </div>
+<div class="field">
+    <label class="label">Tipo</label>
+    <div class="control">
+        <label class="radio">
+            <input type="radio" name="tipo_t">
+            Debe
+        </label>
+        <label class="radio">
+            <input type="radio" name="tipo_t">
+            Haber
+        </label>
     </div>
 </div>
 

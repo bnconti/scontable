@@ -1,39 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-
-import { faSave, faCheck, faDollarSign, faScroll } from '@fortawesome/free-solid-svg-icons';
-
-// import { Cuenta } from './cuenta.model';
+import { Component } from '@angular/core';
+import { CuentaService } from '../cuenta.service';
+import { NgForm } from '@angular/forms';
+import {
+  faSave,
+  faCheck,
+  faDollarSign,
+  faScroll,
+  faExclamationCircle
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-cuenta',
   templateUrl: './cuenta.component.html',
   styleUrls: ['./cuenta.component.css']
 })
-export class CuentaComponent implements OnInit {
-
-  // Reemplazar esto por tabla en BD.
-/*   private cuentas: Array<Cuenta> = [
-    new Cuenta('Caja chica', 'Activo', 5000),
-    new Cuenta('Proveedores', 'Pasivos', 0)
-  ];
- */
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+export class CuentaComponent {
   faSave = faSave;
   faDollarSign = faDollarSign;
   faScroll = faScroll;
   faCheck = faCheck;
+  faExclamationCircle = faExclamationCircle;
 
-  /* -------------------- */
+  constructor(public cuentaService: CuentaService) { }
 
-/*   agregarCuenta(nombre: string, tipo: string, monto: number = 0) {
-    let temp = new Cuenta(nombre, tipo, monto);
-    this.cuentas.push(temp);
+  /* ------------------------- */
+
+  agregarCuenta(form: NgForm) {
+    if (form.invalid) { return; }
+    this.cuentaService.agregarCuenta(form.value.nombre, form.value.monto, form.value.tipo, form.value.monto);
   }
- */
 
 }

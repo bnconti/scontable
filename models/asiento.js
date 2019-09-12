@@ -1,6 +1,3 @@
-const Sequelize = require('sequelize');
-const Model = Sequelize.Model;
-
 module.exports = (sequelize, type) => {
   return sequelize.define('asiento', {
     id: {
@@ -9,7 +6,7 @@ module.exports = (sequelize, type) => {
       autoIncrement: true
     },
     fecha: {
-      type: Sequelize.DATEONLY,
+      type: type.DATEONLY,
       allowNull: false,
     },
   }, {

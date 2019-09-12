@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { faDollarSign, faCalendar, faSave, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faDollarSign, faCalendar, faSave, faCheck, faFolderOpen } from '@fortawesome/free-solid-svg-icons';
+
+import { CuentaService } from '../cuenta.service';
+import { Cuenta } from 'src/app/cuenta/cuenta.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-asiento',
@@ -13,15 +17,24 @@ export class AsientoComponent implements OnInit {
   faCalendar = faCalendar;
   faSave = faSave;
   faCheck = faCheck;
+  faFolderOpen = faFolderOpen;
 
   fechaHoy = new Date().toISOString().substring(0, 10);
+  cuentas: Cuenta[] = [];
 
-  /* -------------------- */
+  private cuentasSub: Subscription;
 
-  constructor() { }
+  /* ------------------------- */
+
+  constructor(public cuentasService: CuentaService) { }
 
   ngOnInit() {
+    this.cuentas = this.cuentasService.traerCuentas();
+    this.cuentasSub = this.cuentasService.traerObservadorCuentas()
+      .subscribe((cuentas: Cuenta[]) => {
+        this.cuentas = cuentas;
+      });
   }
- 
+
 
 }

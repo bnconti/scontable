@@ -2,80 +2,76 @@
 
 <hr>
 
-<div class="field is-horizontal">
-    <div class="field-label is-normal">
+<form #formCuenta="ngForm" (submit)="agregarCuenta(formCuenta)">
+
+    <div class="field">
         <label class="label">Nombre</label>
-    </div>
-
-    <div class="field-body">
-        <div class="field">
-            <p class="control has-icons-left">
-                <input class="input" type="text" name="nombre">
-                <span class="icon is-small is-left">
-                    <i>
-                        <fa-icon [icon]="faScroll"></fa-icon>
-                    </i>
-                </span>
-            </p>
+        <div class="control has-icons-left has-icons-right">
+            <input class="input" type="text" name="nombre" ngModel required #nombre="ngModel">
+            <span class="icon is-small is-left">
+                <i>
+                    <fa-icon [icon]="faScroll"></fa-icon>
+                </i>
+            </span>
+            <span class="icon is-small is-right">
+                <i>
+                    <fa-icon *ngIf="nombre.invalid" [icon]="faExclamationCircle"></fa-icon>
+                </i>
+            </span>
         </div>
-    </div>
-</div>
+        <p class="help is-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">Ingrese un nombre para la
+            cuenta.</p>
 
-<div class="field is-horizontal">
-    <div class="field-label is-normal">
-        <label class="label">Tipo</label>
     </div>
-    <div class="field-body">
-        <div class="field">
-            <div class="control">
-                <label class="radio">
-                    <input type="radio" name="tipo_c">
-                    Activo
-                </label>
-                <label class="radio">
-                    <input type="radio" name="tipo_c">
-                    Pasivo
-                </label>
-            </div>
+
+    <div class="field">
+        <label class="label">Tipo de cuenta</label>
+        <div class="control">
+            <label class="radio">
+                <input type="radio" name="tipo" ngModel #tipoCuenta="ngModel">
+                Activo
+            </label>
+            <label class="radio">
+                <input type="radio" name="tipo">
+                Pasivo
+            </label>
+            <label class="radio">
+                <input type="radio" name="tipo">
+                Patrimonio neto
+            </label>
         </div>
+        <p class="help is-danger" *ngIf="tipoCuenta.invalid">Seleccione un tipo.</p>
     </div>
-</div>
 
-<div class="field is-horizontal">
-    <div class="field-label is-normal">
+    <div class="field">
         <label class="label">Monto inicial</label>
-    </div>
 
-    <div class="field-body">
-        <div class="field">
-            <p class="control has-icons-left">
-                <input class="input" type="text" min=1>
-                <span class="icon is-small is-left">
-                    <i>
-                        <fa-icon [icon]="faDollarSign"></fa-icon>
-                    </i>
-                </span>
-            </p>
+        <div class="control has-icons-left has-icons-right">
+            <input class="input" type="number" min=0 name="monto" ngModel required #monto="ngModel">
+            <span class="icon is-small is-left">
+                <i>
+                    <fa-icon [icon]="faDollarSign"></fa-icon>
+                </i>
+            </span>
+            <span class="icon is-small is-right">
+                <i>
+                    <fa-icon *ngIf="monto.invalid" [icon]="faExclamationCircle"></fa-icon>
+                </i>
+            </span>
         </div>
+        <p class="help is-danger" *ngIf="monto.invalid && (monto.dirty || monto.touched)">Ingrese un monto inicial para la cuenta.</p>
     </div>
-</div>
 
+    <hr>
 
-<hr>
-
-<div class="has-text-centered">
-    <button (click)="agregarCuenta" class="button is-medium is-info" type="submit">
-        <span class="icon is-small is-left">
-            <i>
-                <fa-icon [icon]="faSave"></fa-icon>
-            </i>
-        </span>
-        <span>Crear</span>
-    </button>
-</div>
-
-<hr>
-
-<ul>
-    <li *ngFor="let cuenta of cuentas">{{ cuenta.nombre }}</li>
-</ul>
+    <div class="has-text-centered">
+        <button class="button is-medium is-info" type="submit">
+            <span class="icon is-small is-left">
+                <i>
+                    <fa-icon [icon]="faSave"></fa-icon>
+                </i>
+            </span>
+            <span>Crear</span>
+        </button>
+    </div>
+</form>

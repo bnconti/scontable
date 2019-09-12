@@ -19,6 +19,7 @@ Cuenta.hasMany(Movimiento);
 Asiento.hasMany(Movimiento);
 Usuario.hasMany(Asiento);
 
+// Sincroniza las tablas de la BD con los modelos
 seq.sync({ force: true })
     .then(() => {
         console.log(`Sync!`)
