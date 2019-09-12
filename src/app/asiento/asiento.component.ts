@@ -29,7 +29,7 @@ export class AsientoComponent implements OnInit {
   constructor(public cuentasService: CuentaService) { }
 
   ngOnInit() {
-    this.cuentas = this.cuentasService.traerCuentas();
+    this.cuentasService.traerCuentas();
     this.cuentasSub = this.cuentasService.traerObservadorCuentas()
       .subscribe((cuentas: Cuenta[]) => {
         this.cuentas = cuentas;

@@ -26,8 +26,10 @@ export class CuentaComponent {
   /* ------------------------- */
 
   agregarCuenta(form: NgForm) {
-    if (form.invalid) { return; }
-    this.cuentaService.agregarCuenta(form.value.nombre, form.value.monto, form.value.tipo, form.value.monto);
+    if (form.invalid) {
+      return;
+    }
+    this.cuentaService.agregarCuenta(null, form.value.nombre, form.value.monto, form.value.tipo, form.value.monto);
   }
 
 }

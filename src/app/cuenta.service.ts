@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-
 import { Cuenta } from 'src/app/cuenta/cuenta.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class CuentaService {
@@ -11,7 +11,14 @@ export class CuentaService {
 
   /* ------------------------- */
 
+  constructor(private http: HttpClient) { }
+
   traerCuentas() {
+    this.http.get<{ mensaje: string, cuentas: Cuenta[] }>('http://localhost:3000/api/cuentas')
+      .subscribe((data) => {
+        this.cuentas = data.cuentas;
+        this.actualizacionCuentas.next([...this.cuentas]);
+      });
     return [...this.cuentas];
   }
 
@@ -19,9 +26,13 @@ export class CuentaService {
     return this.actualizacionCuentas.asObservable();
   }
 
-  agregarCuenta(nombre: string, nro: number, tipo: string, monto: number) {
-    const cuenta: Cuenta = {nombre, nro, tipo, monto};
-    this.cuentas.push(cuenta);
-    this.actualizacionCuentas.next([...this.cuentas]);
+  agregarCuenta(id: null, nombre: string, nro: number, tipo: string, monto: number) {
+    const cuenta: Cuenta = { id, nombre, nro, tipo, monto };
+    this.http.post<{ mensaje: string }>('http://localhost:3000/api/cuentas', cuenta)
+      .subscribe((respuesta) => {
+        console.log(respuesta.mensaje);
+        this.cuentas.push(cuenta);
+        this.actualizacionCuentas.next([...this.cuentas]);
+      });
   }
 }
