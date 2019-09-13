@@ -2,7 +2,7 @@
 
 <hr>
 
-<div class="tabs is-boxed">
+<div class="tabs is-boxed" style="overflow-x: scroll;">
     <ul>
         <li class="is-active"><a>Libro mayor</a></li>
         <li><a>Libro diario</a></li>
@@ -12,14 +12,47 @@
 
 <!-- Formato tentativo a utilizar por las tablas, debería ir en cada componente y no acá -->
 <div class="table-container">
+    <h4 class="title">El libro diario para cada cuenta podría verse así...</h4>
     <table class="table is-fullwidth is-hoverable is-bordered">
-        <th>N.º</th>
-        <th>Fecha</th>
+        <thead>
+            <tr>
+                <th class="is-narrow">N.º</th>
+                <th class="is-narrow">FECHA</th>
 
-        <!-- Para un N.º y fecha de transacción puede haber distintas cuentas con sus montos... -->
-        <!-- Tabla dentro de otra tabla? -->
-        <th>Cuenta</th>
-        <th><abbr title="Debe">D</abbr></th>
-        <th><abbr title="Haber">H</abbr></th>
+                <!-- Para un N.º y fecha de transacción puede haber distintas cuentas con sus montos... -->
+                <!-- Tabla dentro de otra tabla? -->
+                <th class="has-text-centered">DESCRIPCIÓN</th>
+                <th class="has-text-centered"><abbr title="Debe">D</abbr></th>
+                <th class="has-text-centered"><abbr title="Haber">H</abbr></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td rowspan="2" class="is-vertical-center">1</td>
+                <!-- rowspan debería ser igual a la cant. de movimientos -->
+                <td rowspan="2" class="is-vertical-center">13/02/19</td> <!-- Esto sería el asiento -->
+                <td class="has-text-left">Banco Nación</td> <!-- Y acá arranca el mov. 1 -->
+                <td class="has-text-centered">3750</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="has-text-right">Valor a depositar</td> <!-- Mov. 2 -->
+                <td></td>
+                <td class="has-text-centered">3750</td>
+            </tr>
+            <tr>
+                <td rowspan="2" class="is-vertical-center">2</td>
+                <td rowspan="2" class="is-vertical-center">14/02/19</td>
+                <td class="has-text-right">Banco Nación</td>
+                <!-- Si es haber tiene que formatear el texto a la derecha -->
+                <td></td>
+                <td class="has-text-centered">1200</td>
+            </tr>
+            <tr>
+                <td>Obligaciones a pagar</td>
+                <td class="has-text-centered">1200</td>
+                <td></td>
+            </tr>
+        </tbody>
     </table>
 </div>

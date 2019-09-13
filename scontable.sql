@@ -18,8 +18,8 @@ CREATE TABLE usuario (
 CREATE TABLE asiento (
     idasiento SERIAL PRIMARY KEY,
     idusuario INT NOT NULL REFERENCES usuario(idusuario),    
+    nro_asiento INT NOT NULL,
     fecha DATE NOT NULL,
-    detalle VARCHAR NULL
 );
 
 CREATE TABLE movimiento (
