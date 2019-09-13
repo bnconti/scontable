@@ -6,7 +6,7 @@
     <ul>
         <li class="is-active"><a>Libro mayor</a></li>
         <li><a>Libro diario</a></li>
-        <!-- Agregar un ngFor que genere una pestaña por cada cuenta en la BD -->
+        <li *ngFor="let cuenta of cuentas"><a href="#">{{ cuenta.nombre }}</a></li>
     </ul>
 </div>
 

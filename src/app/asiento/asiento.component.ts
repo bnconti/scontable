@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { faDollarSign, faCalendar, faSave, faCheck, faFolderOpen } from '@fortawesome/free-solid-svg-icons';
-
-import { CuentaService } from '../cuenta.service';
 import { Cuenta } from 'src/app/cuenta/cuenta.model';
+import { CuentaService } from '../cuenta.service';
 import { Subscription } from 'rxjs';
+
+import { faDollarSign, faCalendar, faSave, faCheck, faFolderOpen } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-asiento',

@@ -15,11 +15,12 @@
             </span>
             <span class="icon is-small is-right">
                 <i>
-                    <fa-icon *ngIf="nombre.invalid" [icon]="faExclamationCircle"></fa-icon>
+                    <fa-icon *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" [icon]="faExclamationCircle"></fa-icon>
                 </i>
             </span>
         </div>
-        <p class="help is-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">Ingrese un nombre para la
+        <p class="help is-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">Ingrese un nombre para
+            la
             cuenta.</p>
 
     </div>
@@ -55,11 +56,12 @@
             </span>
             <span class="icon is-small is-right">
                 <i>
-                    <fa-icon *ngIf="monto.invalid" [icon]="faExclamationCircle"></fa-icon>
+                    <fa-icon *ngIf="monto.invalid && (monto.dirty || monto.touched)" [icon]="faExclamationCircle"></fa-icon>
                 </i>
             </span>
         </div>
-        <p class="help is-danger" *ngIf="monto.invalid && (monto.dirty || monto.touched)">Ingrese un monto inicial para la cuenta.</p>
+        <p class="help is-danger" *ngIf="monto.invalid && (monto.dirty || monto.touched)">Ingrese un monto inicial
+            para la cuenta.</p>
     </div>
 
     <hr>

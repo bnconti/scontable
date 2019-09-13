@@ -1,13 +1,8 @@
 import { Component } from '@angular/core';
 import { CuentaService } from '../cuenta.service';
 import { NgForm } from '@angular/forms';
-import {
-  faSave,
-  faCheck,
-  faDollarSign,
-  faScroll,
-  faExclamationCircle
-} from '@fortawesome/free-solid-svg-icons';
+
+import { faSave, faCheck, faDollarSign, faScroll, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-cuenta',
@@ -30,6 +25,7 @@ export class CuentaComponent {
       return;
     }
     this.cuentaService.agregarCuenta(null, form.value.nombre, form.value.monto, form.value.tipo, form.value.monto);
+    form.resetForm();
   }
 
 }
