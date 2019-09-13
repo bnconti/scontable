@@ -15,35 +15,52 @@
             </span>
             <span class="icon is-small is-right">
                 <i>
-                    <fa-icon *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" [icon]="faExclamationCircle"></fa-icon>
+                    <fa-icon *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" [icon]="faExclamationCircle">
+                    </fa-icon>
                 </i>
             </span>
         </div>
         <p class="help is-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">Ingrese un nombre para
-            la
-            cuenta.</p>
+            la cuenta.</p>
+    </div>
 
+    <div class="field">
+        <label class="label">Nro. de cuenta</label>
+
+        <div class="control has-icons-left has-icons-right">
+            <input class="input" type="number" min=1 name="nro" ngModel required #nro="ngModel">
+            <span class="icon is-small is-left">
+                <i>
+                    <fa-icon [icon]="faDollarSign"></fa-icon>
+                </i>
+            </span>
+            <span class="icon is-small is-right">
+                <i>
+                    <fa-icon *ngIf="nro.invalid && (nro.dirty || nro.touched)" [icon]="faExclamationCircle">
+                    </fa-icon>
+                </i>
+            </span>
+        </div>
+        <p class="help is-danger" *ngIf="nro.invalid && (nro.dirty || nro.touched)">Ingrese un número
+            para la cuenta.</p>
     </div>
 
     <div class="field">
         <label class="label">Tipo de cuenta</label>
         <div class="control">
             <label class="radio">
-                <input type="radio" name="tipo" ngModel #tipoCuenta="ngModel">
+                <input value="Activo" type="radio" name="tipo" ngModel #tipoCuenta="ngModel">
                 Activo
             </label>
             <label class="radio">
-                <input type="radio" name="tipo">
+                <input value="Pasivo" type="radio" name="tipo">
                 Pasivo
-            </label>
-            <label class="radio">
-                <input type="radio" name="tipo">
-                Patrimonio neto
             </label>
         </div>
         <p class="help is-danger" *ngIf="tipoCuenta.invalid">Seleccione un tipo.</p>
     </div>
 
+    <!--
     <div class="field">
         <label class="label">Monto inicial</label>
 
@@ -63,6 +80,7 @@
         <p class="help is-danger" *ngIf="monto.invalid && (monto.dirty || monto.touched)">Ingrese un monto inicial
             para la cuenta.</p>
     </div>
+    -->
 
     <hr>
 

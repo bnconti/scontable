@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const db = require('./queries');
 
 app.use(bodyParser.json());
 
@@ -12,35 +13,8 @@ app.use((req, res, next) => {
     next();
 });
 
-app.get("/api/cuentas/", (req, res) => {
-    const cuentas = [
-        {
-            id: "1",
-            nombre: "Caja chica",
-            nro: 8001,
-            tipo: "Activo",
-            monto: 4500  
-        },
-        {
-            id: "2",
-            nombre: "Proveedores",
-            nro: 8015,
-            tipo: "Pasivo",
-            monto: 200000  
-        },
-    ];
-    res.status(200).json({
-        mensaje: "Desde acá se accede a las cuentas",
-        cuentas: cuentas
-    })
-})
-
-app.post("/api/cuentas", (req, res, next) => {
-    const cuenta = req.body;
-    console.log(cuenta);
-    res.status(201).json({
-        mensaje: 'Cuenta agregada exitosamente'
-    });
-})
+app.get('/cuentas', db.getCuentas);
+app.get('/cuentas/:id', db.getCuentaById);
+app.post('/cuentas', db.createCuenta);
 
 module.exports = app;

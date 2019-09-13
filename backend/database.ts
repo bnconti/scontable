@@ -22,13 +22,13 @@ Usuario.hasMany(Asiento);
 // Sincroniza las tablas de la BD con los modelos
 seq.sync({ force: true })
     .then(() => {
-        console.log(`Sync!`)
+        console.log(`Sync!`);
     });
 
 // Correr 'node database.ts' para ejecutar lo de abajo
 // y verificar si funca la conexión con la BD
 seq.authenticate().then(() => {
-    console.log("Conexión con la BD establecida.");
+    console.log('Conexión con la BD establecida.');
 }).catch((err) => {
     console.log(err);
-})
+});

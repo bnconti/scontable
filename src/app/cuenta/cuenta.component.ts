@@ -24,7 +24,7 @@ export class CuentaComponent {
     if (form.invalid) {
       return;
     }
-    this.cuentaService.agregarCuenta(null, form.value.nombre, form.value.monto, form.value.tipo, form.value.monto);
+    this.cuentaService.agregarCuenta(form.value.nro, form.value.nombre, form.value.tipo);
     form.resetForm();
   }
 

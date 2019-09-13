@@ -1,7 +1,5 @@
 export interface Cuenta {
-    id: string;
-    nombre: string;
     nro: number;
+    nombre: string;
     tipo: string;
-    monto: number;
 }

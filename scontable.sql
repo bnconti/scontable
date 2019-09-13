@@ -1,11 +1,11 @@
 /*  user: postgres
  *  pass: root      */
 
-CREATE TABLE cuenta (
-    idcuenta SERIAL PRIMARY KEY,
-    nro INT NOT NULL,
+CREATE TABLE cuentas (
+    idcuentas SERIAL PRIMARY KEY,
+    nro INT NOT NULL UNIQUE,
     nombre VARCHAR(45) NOT NULL UNIQUE,
-    tipo VARCHAR(45) NOT NULL CHECK (tipo IN('Activo', 'Pasivo'))
+    tipo VARCHAR(45) NOT NULL
 );
 
 CREATE TABLE usuario (
@@ -26,7 +26,7 @@ CREATE TABLE movimiento (
     idmovimiento INT NOT NULL,
     idasiento INT NOT NULL REFERENCES asiento(idasiento),
     PRIMARY KEY(idmovimiento, idasiento),
-    idcuenta INT NOT NULL REFERENCES cuenta(idcuenta),
+    idcuentas INT NOT NULL REFERENCES cuentas(idcuentas),
     monto NUMERIC NOT NULL,
-    tipo VARCHAR(45) NOT NULL CHECK (tipo IN('Debe', 'Haber'))
+    tipo VARCHAR(45) NOT NULL
 );

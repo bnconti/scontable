@@ -20,7 +20,7 @@ export class AsientoComponent implements OnInit {
   faFolderOpen = faFolderOpen;
 
   fechaHoy = new Date().toISOString().substring(0, 10);
-  cuentas: Cuenta[] = [];
+  cuentas: Cuenta[];
 
   private cuentasSub: Subscription;
 
@@ -35,6 +35,4 @@ export class AsientoComponent implements OnInit {
         this.cuentas = cuentas;
       });
   }
-
-
 }
