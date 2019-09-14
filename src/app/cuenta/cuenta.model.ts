@@ -1,5 +1,5 @@
 export interface Cuenta {
-    nro: number;
+    nro_cta: number;
     nombre: string;
-    tipo: string;
+    tipo_cta: string;
 }

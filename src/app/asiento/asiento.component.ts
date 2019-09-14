@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, FormControl, Form, NgForm } from '@angular/forms';
 
 import { Asiento, Movimiento } from './asiento.model';
 import { Cuenta } from 'src/app/cuenta/cuenta.model';
@@ -41,11 +41,16 @@ export class AsientoComponent implements OnInit {
 
     this.asientoForm = this.fb.group({
       titulo: [],
-      movimientos: this.fb.array([this.fb.group({ point:'' })])
-    })
+      movimientos: this.fb.array([this.fb.group({ point: '' })])
+    });
   }
 
-  get movimientos() {
+/*   get movimientos() {
     return this.asientoForm.get('movimientos') as FormArray;
   }
-}
+
+  agregarAsiento(form: NgForm) {
+    const valores = form.value();
+    const nuevoAsiento: Asiento = new AsientoModel();
+  }
+ */}

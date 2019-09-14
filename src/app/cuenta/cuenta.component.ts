@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CuentaService } from '../cuenta.service';
 import { NgForm } from '@angular/forms';
 
-import { faSave, faCheck, faDollarSign, faScroll, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import { faSave, faCheck, faDollarSign, faScroll, faExclamationCircle, faPen } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-cuenta',
@@ -15,6 +15,7 @@ export class CuentaComponent {
   faScroll = faScroll;
   faCheck = faCheck;
   faExclamationCircle = faExclamationCircle;
+  faPen = faPen;
 
   constructor(public cuentaService: CuentaService) { }
 

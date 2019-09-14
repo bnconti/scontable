@@ -3,7 +3,9 @@ import { Subject } from 'rxjs';
 import { Cuenta } from 'src/app/cuenta/cuenta.model';
 import { HttpClient } from '@angular/common/http';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class CuentaService {
 
   private cuentas: Cuenta[];
@@ -27,10 +29,9 @@ export class CuentaService {
   }
 
   agregarCuenta(nro: number, nombre: string, tipo: string) {
-    const cuenta: Cuenta = { nro, nombre, tipo };
+    const cuenta: Cuenta = { nro_cta: nro, nombre, tipo_cta: tipo };
     this.http.post<{ mensaje: string }>('http://localhost:3000/cuentas', cuenta)
       .subscribe((respuesta) => {
-        console.log(respuesta);
         this.cuentas.push(cuenta);
         this.actualizacionCuentas.next([...this.cuentas]);
       });

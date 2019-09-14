@@ -5,7 +5,7 @@ const db = require('./queries');
 
 app.use(bodyParser.json());
 
-// Desactiva CORS
+// Desactiva CORS y otras yerbas
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -15,6 +15,12 @@ app.use((req, res, next) => {
 
 app.get('/cuentas', db.getCuentas);
 app.get('/cuentas/:id', db.getCuentaById);
-app.post('/cuentas', db.createCuenta);
+app.post('/cuentas', db.crearCuenta);
+
+app.get('/asientos', db.getAsientos);
+app.post('/asientos', db.crearAsiento);
+
+app.get('/movimientos', db.getMovimientos);
+// app.post('/movimientos', db.crearMovimiento);
 
 module.exports = app;

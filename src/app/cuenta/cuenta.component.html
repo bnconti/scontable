@@ -2,6 +2,7 @@
 
 <hr>
 
+<!-- TODO: Generar notificación de éxito/error al enviar el formulario -->
 <form #formCuenta="ngForm" (submit)="agregarCuenta(formCuenta)">
 
     <div class="field">
@@ -26,12 +27,12 @@
 
     <div class="field">
         <label class="label">Nro. de cuenta</label>
-
+        <!-- TODO: Comprobar que el nro. de cuenta no exista antes de enviar. -->
         <div class="control has-icons-left has-icons-right">
             <input class="input" type="number" min=1 name="nro" ngModel required #nro="ngModel">
             <span class="icon is-small is-left">
                 <i>
-                    <fa-icon [icon]="faDollarSign"></fa-icon>
+                    <fa-icon [icon]="faPen"></fa-icon>
                 </i>
             </span>
             <span class="icon is-small is-right">

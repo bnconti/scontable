@@ -1,11 +1,8 @@
-/*  user: postgres
- *  pass: root      */
-
-CREATE TABLE cuentas (
-    idcuentas SERIAL PRIMARY KEY,
-    nro INT NOT NULL UNIQUE,
+CREATE TABLE cuenta (
+    idcuenta SERIAL PRIMARY KEY,
+    nro_cta INT NOT NULL UNIQUE,
     nombre VARCHAR(45) NOT NULL UNIQUE,
-    tipo VARCHAR(45) NOT NULL
+    tipo_cta VARCHAR(45) NOT NULL
 );
 
 CREATE TABLE usuario (
@@ -18,15 +15,63 @@ CREATE TABLE usuario (
 CREATE TABLE asiento (
     idasiento SERIAL PRIMARY KEY,
     idusuario INT NOT NULL REFERENCES usuario(idusuario),    
-    nro_asiento INT NOT NULL,
-    fecha DATE NOT NULL,
+    nro_asiento SERIAL NOT NULL UNIQUE,
+    fecha DATE NOT NULL
 );
 
 CREATE TABLE movimiento (
-    idmovimiento INT NOT NULL,
-    idasiento INT NOT NULL REFERENCES asiento(idasiento),
+    idasiento INT REFERENCES asiento(idasiento),
+    idmovimiento SERIAL,
     PRIMARY KEY(idmovimiento, idasiento),
-    idcuentas INT NOT NULL REFERENCES cuentas(idcuentas),
+    idcuenta INT NOT NULL REFERENCES cuenta(idcuenta),
     monto NUMERIC NOT NULL,
-    tipo VARCHAR(45) NOT NULL
+    tipo_mov VARCHAR(45) NOT NULL
 );
+
+INSERT INTO usuario(
+	nombre, password, es_admin)
+	VALUES ('bnconti', 'contra', true);
+
+INSERT INTO cuenta(
+	nro_cta, nombre, tipo_cta)
+	VALUES (1001, 'Caja chica', 'Pasivo');
+
+INSERT INTO cuenta(
+	nro_cta, nombre, tipo_cta)
+	VALUES (1002, 'Gastos administrativos', 'Pasivo');
+
+INSERT INTO cuenta(
+	nro_cta, nombre, tipo_cta)
+	VALUES (2001, 'Banco Nación', 'Activo');
+
+INSERT INTO cuenta(
+	nro_cta, nombre, tipo_cta)  
+	VALUES (2002, 'Deudores', 'Activo');
+
+INSERT INTO asiento(
+	idusuario, fecha)
+	VALUES (1, '11-09-2019');
+
+INSERT INTO asiento(
+	idusuario, fecha)
+	VALUES (1, '14-09-2019');
+
+INSERT INTO movimiento(
+	idasiento, idcuenta, monto, tipo_mov)
+	VALUES (1, 1, 2300, 'Debe');
+
+INSERT INTO movimiento(
+	idasiento, idcuenta, monto, tipo_mov)
+	VALUES (1, 2, 1000, 'Haber');
+
+INSERT INTO movimiento(
+	idasiento, idcuenta, monto, tipo_mov)
+	VALUES (1, 3, 1300, 'Haber');
+
+INSERT INTO movimiento(
+	idasiento, idcuenta, monto, tipo_mov)
+	VALUES (2, 1, 2000, 'Haber');
+
+INSERT INTO movimiento(
+	idasiento, idcuenta, monto, tipo_mov)
+	VALUES (2, 4, 2000, 'Debe');
