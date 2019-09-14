@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 
+import { Asiento, Movimiento } from './asiento.model';
 import { Cuenta } from 'src/app/cuenta/cuenta.model';
 import { CuentaService } from '../cuenta.service';
 import { Subscription } from 'rxjs';
@@ -24,9 +26,11 @@ export class AsientoComponent implements OnInit {
 
   private cuentasSub: Subscription;
 
+  asientoForm: FormGroup;
+
   /* ------------------------- */
 
-  constructor(public cuentasService: CuentaService) { }
+  constructor(public cuentasService: CuentaService, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.cuentasService.traerCuentas();
@@ -34,5 +38,14 @@ export class AsientoComponent implements OnInit {
       .subscribe((cuentas: Cuenta[]) => {
         this.cuentas = cuentas;
       });
+
+    this.asientoForm = this.fb.group({
+      titulo: [],
+      movimientos: this.fb.array([this.fb.group({ point:'' })])
+    })
+  }
+
+  get movimientos() {
+    return this.asientoForm.get('movimientos') as FormArray;
   }
 }
