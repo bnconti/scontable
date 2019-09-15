@@ -53,12 +53,10 @@
             <div class="field">
                 <label class="label">Tipo de cuenta</label>
                 <div *ngFor="let tipo of tipos">
-                    <div class="control">
-                        <label class="radio">
-                            <input [value]="tipo" type="radio" name="tipo" ngModel required>
-                            {{ tipo }}
-                        </label>
-                    </div>
+                    <label class="radio">
+                        <input [value]="tipo" type="radio" name="tipo" ngModel required>
+                        {{ tipo }}
+                    </label>
                 </div>
             </div>
         </div>

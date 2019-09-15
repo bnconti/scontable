@@ -48,18 +48,23 @@ export class AsientoComponent implements OnInit {
 
     this.asientoForm = this.fb.group({
       fecha: [this.fechaHoy, [Validators.required]],
-      movimientos: this.fb.array([this.crearMovimiento()])
+      movimientos: this.fb.array([this.crearMovimiento()], [this.validarTamanhoMovimientos])
     });
   }
 
   agregarAsiento() {
+    // Borrar log desp
     console.log(this.asientoForm.value);
   }
 
   agregarMovimiento() {
-    console.log(this.asientoForm.get('movimientos'));
     this.movimientos = this.asientoForm.get('movimientos') as FormArray;
     this.movimientos.push(this.crearMovimiento());
+  }
+
+  quitarMovimiento(i: number) {
+    this.movimientos = this.asientoForm.get('movimientos') as FormArray;
+    this.movimientos.removeAt(i);
   }
 
   get traerMovimientos() {
@@ -76,6 +81,11 @@ export class AsientoComponent implements OnInit {
 
   validarValorCuenta(control: AbstractControl): { [key: string]: any } | null {
     const invalid = control.value === 'Seleccione';
+    return invalid ? { invalid: { valid: false, value: control.value } } : null;
+  }
+
+  validarTamanhoMovimientos(control: AbstractControl): { [key: string]: any } | null {
+    const invalid = control.value.length == 0;
     return invalid ? { invalid: { valid: false, value: control.value } } : null;
   }
 }
