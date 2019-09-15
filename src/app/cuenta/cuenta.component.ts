@@ -17,6 +17,8 @@ export class CuentaComponent {
   faExclamationCircle = faExclamationCircle;
   faPen = faPen;
 
+  tipos = ['Activo', 'Pasivo'];
+
   constructor(public cuentaService: CuentaService) { }
 
   /* ------------------------- */

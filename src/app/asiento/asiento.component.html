@@ -1,71 +1,131 @@
 <h1 class="title">Carga de asiento</h1>
 
 <hr>
-<!-- (ngSubmit)="agregarAsiento(f)" -->
-<form #f="ngForm">
-    <div class="field">
-        <label class="label">Cuenta</label>
-        <div class="control has-icons-left">
-            <div class="select is-fullwidth">
-                <select name="nro" ngModel>
-                    <option selected>Seleccione</option>
-                    <option *ngFor="let cuenta of cuentas">
-                        {{ cuenta.nombre }} ({{ cuenta.nro_cta }})
-                    </option>
-                </select>
-            </div>
-            <span class="icon is-small is-left">
-                <i>
-                    <fa-icon [icon]="faFolderOpen"></fa-icon>
-                </i>
-            </span>
-        </div>
-    </div>
+<form [formGroup]="asientoForm" (ngSubmit)="agregarAsiento()">
 
     <div class="field">
-        <label class="label">Monto</label>
-
-        <div class="control has-icons-left">
-            <input class="input" type="text" min=1 name="monto" ngModel>
-            <span class="icon is-small is-left">
-                <i>
-                    <fa-icon [icon]="faDollarSign"></fa-icon>
-                </i>
-            </span>
-        </div>
-    </div>
-
-    <!-- IMPEDIR QUE LA FECHA SEA MAYOR A HOY -->
-    <div class="field">
-        <label class="label">Fecha</label>
-        <div class="control has-icons-left">
-            <input class="input" type="date" [value]="fechaHoy" min="2010-01-01" name="fecha" ngModel>
+        <label class="label">Fecha de registro del asiento</label>
+        <div class="control has-icons-left has-icons-right">
             <span class="icon is-small is-left">
                 <i>
                     <fa-icon [icon]="faCalendar"></fa-icon>
                 </i>
             </span>
+            <span class="icon is-small is-right">
+                <i>
+                    <fa-icon *ngIf="asientoForm.get('fecha').invalid && asientoForm.get('fecha').touched"
+                        [icon]="faExclamationCircle">
+                    </fa-icon>
+                </i>
+            </span>
+            <input class="input" type="date" [max]="fechaHoy" formControlName="fecha">
+            <p class="help is-danger" *ngIf="asientoForm.get('fecha').invalid && asientoForm.get('fecha').touched">
+                Ingrese una fecha.</p>
         </div>
     </div>
 
-    <div class="field">
-        <label class="label">Tipo</label>
-        <div class="control">
-            <label class="radio">
-                <input type="radio" name="tipo" ngModel>
-                Debe
-            </label>
-            <label class="radio">
-                <input type="radio" name="tipo">
-                Haber
-            </label>
-        </div>
-    </div>
+    <button class="button is-success is-outlined is-fullwidth" type="button" (click)="agregarMovimiento()">
+        <span class="icon is-medium">
+            <i>
+                <fa-icon [icon]="faPlus"></fa-icon>
+            </i>
+        </span>
+        <span>Agregar movimiento</span>
+    </button>
+
 
     <hr>
 
+    <div formArrayName="movimientos" 
+    *ngFor="let movimiento of traerMovimientos.controls; let i = index;">
+        <div [formGroupName]="i">
+            <div class="columns is-vcentered">
+                <div class="field is-grouped is-horizontal">
+                    <div class="column is-two-thirds">
+                        <div class="field">
+                            <label class="label">Monto</label>
+                            <div class="control has-icons-left has-icons-right">
+                                <span class="icon is-small is-left">
+                                    <i>
+                                        <fa-icon [icon]="faDollarSign"></fa-icon>
+                                    </i>
+                                </span>
+<!--                                 <span class="icon is-small is-right">
+                                    <i>
+                                        <fa-icon
+                                            *ngIf="asientoForm.get('monto').invalid && asientoForm.get('monto').touched"
+                                            [icon]="faExclamationCircle">
+                                        </fa-icon>
+                                    </i>
+                                </span>
+ -->                                <input class="input" type="number" min=1 formControlName="monto">
+<!--                                 <p class="help is-danger"
+                                    *ngIf="asientoForm.get('monto').invalid && asientoForm.get('monto').touched">
+                                    Ingrese un monto.</p>
+ -->                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">Tipo</label>
+                            <div *ngFor="let tipo of tipos">
+                                <div class="control">
+                                    <label class="radio">
+                                        <input name="tipo" [value]="tipo" type="radio" formControlName="tipo" required>
+                                        {{ tipo }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="columns is-vcentered">
+                <div class="field is-grouped is-horizontal">
+                    <div class="column is-four-fifths">
+                        <div class="field">
+                            <label class="label">Cuenta</label>
+                            <div class="control has-icons-left has-icons-right">
+                                <span class="icon is-small is-left">
+                                    <i>
+                                        <fa-icon [icon]="faFolderOpen"></fa-icon>
+                                    </i>
+                                </span>
+                                <div class="select is-fullwidth">
+                                    <select formControlName="nro_cta">
+                                        <option>Seleccione</option>
+                                        <option *ngFor="let cuenta of cuentas" value="{{ cuenta.nro_cta }}">
+                                            {{ cuenta.nombre }} ({{ cuenta.nro_cta }})
+                                        </option>
+                                    </select>
+                                </div>
+<!--                                 <p class="help is-danger"
+                                    *ngIf="asientoForm.get('nro_cta').invalid && asientoForm.get('nro_cta').touched">
+                                    Seleccione una cuenta.</p>
+ -->                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column" style="margin-bottom:0px;">
+                        <button class="button is-danger is-outlined" type="button">
+                            <span class="icon is-medium">
+                                <i>
+                                    <fa-icon [icon]="faMinus"></fa-icon>
+                                </i>
+                            </span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <hr>
+    </div>
+
     <div class="has-text-centered">
-        <button class="button is-medium is-info" type="submit">
+        <button class="button is-medium is-info" type="submit" [disabled]="asientoForm.invalid">
             <span class="icon is-small is-left">
                 <i>
                     <fa-icon [icon]="faSave"></fa-icon>
@@ -73,5 +133,6 @@
             </span>
             <span>Cargar asiento</span>
         </button>
+        <p class="help is-danger" *ngIf="asientoForm.invalid">Complete el formulario para cargar el asiento.</p>
     </div>
 </form>

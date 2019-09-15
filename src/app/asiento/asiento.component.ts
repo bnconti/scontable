@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormControl, Form, NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl, FormArray } from '@angular/forms';
 
 import { Asiento, Movimiento } from './asiento.model';
 import { Cuenta } from 'src/app/cuenta/cuenta.model';
 import { CuentaService } from '../cuenta.service';
 import { Subscription } from 'rxjs';
 
-import { faDollarSign, faCalendar, faSave, faCheck, faFolderOpen } from '@fortawesome/free-solid-svg-icons';
+import {
+  faDollarSign, faCalendar, faSave, faFolderOpen,
+  faExclamationCircle, faPlus, faMinus
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-asiento',
@@ -18,15 +21,19 @@ export class AsientoComponent implements OnInit {
   faDollarSign = faDollarSign;
   faCalendar = faCalendar;
   faSave = faSave;
-  faCheck = faCheck;
+  faExclamationCircle = faExclamationCircle;
   faFolderOpen = faFolderOpen;
+  faPlus = faPlus;
+  faMinus = faMinus;
 
   fechaHoy = new Date().toISOString().substring(0, 10);
   cuentas: Cuenta[];
 
   private cuentasSub: Subscription;
 
+  tipos = ['Debe', 'Haber'];
   asientoForm: FormGroup;
+  movimientos: FormArray;
 
   /* ------------------------- */
 
@@ -40,17 +47,35 @@ export class AsientoComponent implements OnInit {
       });
 
     this.asientoForm = this.fb.group({
-      titulo: [],
-      movimientos: this.fb.array([this.fb.group({ point: '' })])
+      fecha: [this.fechaHoy, [Validators.required]],
+      movimientos: this.fb.array([this.crearMovimiento()])
     });
   }
 
-/*   get movimientos() {
+  agregarAsiento() {
+    console.log(this.asientoForm.value);
+  }
+
+  agregarMovimiento() {
+    console.log(this.asientoForm.get('movimientos'));
+    this.movimientos = this.asientoForm.get('movimientos') as FormArray;
+    this.movimientos.push(this.crearMovimiento());
+  }
+
+  get traerMovimientos() {
     return this.asientoForm.get('movimientos') as FormArray;
   }
 
-  agregarAsiento(form: NgForm) {
-    const valores = form.value();
-    const nuevoAsiento: Asiento = new AsientoModel();
+  crearMovimiento(): FormGroup {
+    return this.fb.group({
+      monto: ['', [Validators.required]],
+      tipo: ['', [Validators.required]],
+      nro_cta: ['Seleccione', [Validators.required, this.validarValorCuenta]]
+    });
   }
- */}
+
+  validarValorCuenta(control: AbstractControl): { [key: string]: any } | null {
+    const invalid = control.value === 'Seleccione';
+    return invalid ? { invalid: { valid: false, value: control.value } } : null;
+  }
+}
