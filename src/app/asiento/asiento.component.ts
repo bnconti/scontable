@@ -57,7 +57,7 @@ export class AsientoComponent implements OnInit {
 
     this.asientoForm = this.fb.group({
       fecha: [this.fechaHoy, [Validators.required]],
-      movimientos: this.fb.array([this.crearMovimiento()], [this.validarTamanhoMovimientos])
+      movimientos: this.fb.array([this.crearMovimiento(), this.crearMovimiento()], [this.validarBalanceoMovimientos])
     });
   }
 
@@ -88,13 +88,23 @@ export class AsientoComponent implements OnInit {
     return this.asientoForm.get('movimientos') as FormArray;
   }
 
-  validarValorCuenta(control: AbstractControl): { [key: string]: any } | null {
+  validarValorCuenta(control: AbstractControl): { [key: string]: boolean } | null {
+    /* Verifica si el usuario seleccionó una cuenta */
     const invalid = control.value === 'Seleccione';
-    return invalid ? { invalid: { valid: false, value: control.value } } : null;
+    return invalid ? { cuentaInvalida: true } : null;
   }
 
-  validarTamanhoMovimientos(control: AbstractControl): { [key: string]: any } | null {
-    const invalid = control.value.length === 0;
-    return invalid ? { invalid: { valid: false, value: control.value } } : null;
+  validarBalanceoMovimientos(control: AbstractControl): { [key: string]: boolean } | null {
+    /* Para que esté balanceado, la diferencia entre debe y haber debe ser 0 */
+    let total = 0;
+    for (const movimiento of control.value) {
+      if (movimiento.tipo === 'Debe') {
+        total += Number(movimiento.monto);
+      } else if (movimiento.tipo === 'Haber') {
+        total -= Number(movimiento.monto);
+      }
+    }
+    return total !== 0 ? { asientoDesbalanceado: true } : null;
   }
+
 }

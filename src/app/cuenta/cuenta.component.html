@@ -1,46 +1,44 @@
-<h1 class="title">Crear cuenta</h1>
+<h1 class="title">Cuenta nueva</h1>
 
 <hr>
 
 <!-- TODO: Generar notificación de éxito/error al enviar el formulario -->
 <form #formCuenta="ngForm" (ngSubmit)="agregarCuenta(formCuenta)">
 
-    <div class="field">
-        <label class="label">Nombre</label>
-        <div class="control has-icons-left has-icons-right">
-            <input class="input" type="text" name="nombre" ngModel required #nombre="ngModel">
-            <span class="icon is-small is-left">
-                <i>
-                    <fa-icon [icon]="faScroll"></fa-icon>
-                </i>
-            </span>
-            <span class="icon is-small is-right">
-                <i>
-                    <fa-icon *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" [icon]="faExclamationCircle">
-                    </fa-icon>
-                </i>
-            </span>
-        </div>
-        <p class="help is-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">Ingrese un nombre para
-            la cuenta.</p>
-    </div>
-
     <div class="columns">
-        <div class="column is-half">
+        <div class="column is-6">
             <div class="field">
-                <label class="label">Nro. de cuenta</label>
-                <!-- TODO: Comprobar que el nro. de cuenta no exista antes de enviar. -->
+                <label class="label">Nombre</label>
                 <div class="control has-icons-left has-icons-right">
-                    <input class="input" type="number" min=1 name="nro" ngModel required #nro="ngModel">
+                    <input class="input" type="text" name="nombre" ngModel required #nombre="ngModel">
                     <span class="icon is-small is-left">
                         <i>
-                            <fa-icon [icon]="faPen"></fa-icon>
+                            <fa-icon [icon]="faScroll"></fa-icon>
                         </i>
                     </span>
                     <span class="icon is-small is-right">
                         <i>
-                            <fa-icon *ngIf="nro.invalid && (nro.dirty || nro.touched)" [icon]="faExclamationCircle">
+                            <fa-icon *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)"
+                                [icon]="faExclamationCircle">
                             </fa-icon>
+                        </i>
+                    </span>
+                </div>
+                <p class="help is-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">Ingrese un nombre
+                    para
+                    la cuenta.</p>
+            </div>
+        </div>
+
+        <div class="column is-3">
+            <div class="field">
+                <label class="label">Nro.</label>
+                <!-- TODO: Comprobar que el nro. de cuenta no exista antes de enviar. -->
+                <div class="control has-icons-left">
+                    <input class="input" type="number" min=1 name="nro" ngModel required #nro="ngModel">
+                    <span class="icon is-small is-left">
+                        <i>
+                            <fa-icon [icon]="faPen"></fa-icon>
                         </i>
                     </span>
                 </div>
@@ -49,9 +47,9 @@
             </div>
         </div>
 
-        <div class="column is-half">
+        <div class="column is-3">
             <div class="field">
-                <label class="label">Tipo de cuenta</label>
+                <label class="label">Tipo</label>
                 <div *ngFor="let tipo of tipos">
                     <label class="radio">
                         <input [value]="tipo" type="radio" name="tipo" ngModel required>
