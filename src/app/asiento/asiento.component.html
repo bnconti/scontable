@@ -103,9 +103,6 @@
         <hr>
     </div>
 
-    <p>Asiento desbalanceado: {{ asientoForm.get('movimientos').hasError('asientoDesbalanceado') }}</p>
-    <p>Inválido: {{ asientoForm.invalid }}</p>
-
     <div class="has-text-centered">
         <button class="button is-medium is-info" type="submit" [disabled]="asientoForm.invalid">
             <span class="icon is-small is-left">
@@ -118,7 +115,7 @@
         <span *ngIf="asientoForm.invalid">
             <p class="help is-danger"
                 *ngIf="asientoForm.get('movimientos').hasError('asientoDesbalanceado'); else elOtroMsj">Los asientos
-                no están balanceados. Verifique los montos y el tipo seleccionado.</p>
+                no están balanceados. Verifique los montos y los tipos seleccionados.</p>
             <ng-template #elOtroMsj>
                 <p class="help is-danger">Complete el formulario para cargar el asiento.</p>
             </ng-template>
