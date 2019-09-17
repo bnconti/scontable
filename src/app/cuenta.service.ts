@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CuentaService {
 
-  private cuentas: Cuenta[];
+  cuentas: Cuenta[];
   private actualizacionCuentas = new Subject<Cuenta[]>();
 
   /* ------------------------- */

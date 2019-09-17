@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl, FormA
 import { Asiento, Movimiento } from './asiento.model';
 import { Cuenta } from 'src/app/cuenta/cuenta.model';
 import { CuentaService } from '../cuenta.service';
+import { AsientoService } from '../asiento.service';
 import { Subscription } from 'rxjs';
 
 import {
@@ -28,8 +29,10 @@ export class AsientoComponent implements OnInit {
 
   fechaHoy = new Date().toISOString().substring(0, 10);
   cuentas: Cuenta[];
+  asientos: Asiento[];
 
   private cuentasSub: Subscription;
+  private asientosSub: Subscription;
 
   tipos = ['Debe', 'Haber'];
   asientoForm: FormGroup;
@@ -37,7 +40,7 @@ export class AsientoComponent implements OnInit {
 
   /* ------------------------- */
 
-  constructor(public cuentasService: CuentaService, private fb: FormBuilder) { }
+  constructor(public cuentasService: CuentaService, public asientoService: AsientoService, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.cuentasService.traerCuentas();
@@ -46,15 +49,29 @@ export class AsientoComponent implements OnInit {
         this.cuentas = cuentas;
       });
 
+    this.asientoService.traerAsientos();
+    this.asientosSub = this.asientoService.traerObservadorAsientos()
+      .subscribe((asientos: Asiento[]) => {
+        this.asientos = asientos;
+      });
+
     this.asientoForm = this.fb.group({
       fecha: [this.fechaHoy, [Validators.required]],
       movimientos: this.fb.array([this.crearMovimiento()], [this.validarTamanhoMovimientos])
     });
   }
 
+  crearMovimiento(): FormGroup {
+    return this.fb.group({
+      monto: ['', [Validators.required]],
+      tipo: ['', [Validators.required]],
+      nro_cta: ['Seleccione', [Validators.required, this.validarValorCuenta]]
+    });
+  }
+
   agregarAsiento() {
-    // Borrar log desp
-    console.log(this.asientoForm.value);
+    this.asientoService.agregarAsiento(1, this.asientoForm.value.fecha, this.asientoForm.value.movimientos);
+    this.asientoForm.reset();
   }
 
   agregarMovimiento() {
@@ -71,21 +88,13 @@ export class AsientoComponent implements OnInit {
     return this.asientoForm.get('movimientos') as FormArray;
   }
 
-  crearMovimiento(): FormGroup {
-    return this.fb.group({
-      monto: ['', [Validators.required]],
-      tipo: ['', [Validators.required]],
-      nro_cta: ['Seleccione', [Validators.required, this.validarValorCuenta]]
-    });
-  }
-
   validarValorCuenta(control: AbstractControl): { [key: string]: any } | null {
     const invalid = control.value === 'Seleccione';
     return invalid ? { invalid: { valid: false, value: control.value } } : null;
   }
 
   validarTamanhoMovimientos(control: AbstractControl): { [key: string]: any } | null {
-    const invalid = control.value.length == 0;
+    const invalid = control.value.length === 0;
     return invalid ? { invalid: { valid: false, value: control.value } } : null;
   }
 }

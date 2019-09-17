@@ -1,9 +1,8 @@
 <h1 class="title">Carga de asiento</h1>
 
 <hr>
+
 <form [formGroup]="asientoForm" (ngSubmit)="agregarAsiento()">
-
-
     <div class="columns is-mobile">
         <div class="column is-half">
             <label class="label">Fecha</label>
@@ -79,12 +78,15 @@
                     </div>
                 </div>
 
+                <!-- formControlName="tipo" -->
+
                 <div class="column is-one-fifth">
                     <div class="field">
                         <label class="label">Tipo</label>
                         <div *ngFor="let tipo of tipos">
                             <label class="radio">
-                                <input name="tipo" [value]="tipo" type="radio" formControlName="tipo" required>
+                                <input name="tipo" [value]="tipo" [attr.name]="tipo + i" type="radio" formControlName="tipo"
+                                    required>
                                 {{ tipo }}
                             </label>
                         </div>
@@ -106,7 +108,8 @@
     </div>
 
     <div class="has-text-centered">
-        <button class="button is-medium is-info" type="submit" [disabled]="asientoForm.invalid || traerMovimientos.value.length == 0">
+        <button class="button is-medium is-info" type="submit"
+            [disabled]="asientoForm.invalid || traerMovimientos.value.length == 0">
             <span class="icon is-small is-left">
                 <i>
                     <fa-icon [icon]="faSave"></fa-icon>

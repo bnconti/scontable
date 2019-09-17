@@ -2,7 +2,7 @@ export interface Asiento {
     idasiento?: number;
     idusuario: number;
     fecha: string;
-    nro_asiento: number;
+    nro_asiento?: number;
     movimientos?: Movimiento[];
 }
 

@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AsientoService {
-  private asientos: Asiento[];
+  asientos: Asiento[];
   private actualizacionAsientos = new Subject<Asiento[]>();
 
   /* ------------------------- */
@@ -27,14 +27,11 @@ export class AsientoService {
     return this.actualizacionAsientos.asObservable();
   }
 
-  agregarAsiento(idusuario: number, fecha: string, movimientos: Movimiento[]) {
-    // Creo el asiento y llamo tantas veces 
-    // como sea necesario a agregarMovimiento
-
-  }
-
-  agregarMovimiento(idasiento: number, idcuenta: number, monto: number, tipo_mov: string) {
-    const movimiento: Movimiento = { idasiento, idcuenta, monto, tipo_mov };
-    this.http.post('http://localhost:3000/movimientos', movimiento);
+  agregarAsiento(idusuario: number = 1, fecha: string, movimientos: []) {
+    const request = { idusuario, fecha, movimientos };
+    this.http.post<{ mensaje: string }>('http://localhost:3000/asientos', request).subscribe(() => {
+      this.asientos.push({idusuario, fecha});
+      this.actualizacionAsientos.next([...this.asientos]);
+    });
   }
 }
