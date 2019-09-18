@@ -6,13 +6,12 @@
     <ul>
         <li class="is-active"><a>Libro mayor</a></li>
         <li><a>Libro diario</a></li>
-        <li *ngFor="let cuenta of cuentas"><a href="#">{{ cuenta.nombre }}</a></li>
+        <li *ngFor="let cuenta of getCuentas()"><a href="#">{{ cuenta.nombre }}</a></li>
     </ul>
 </div>
 
 <!-- Formato tentativo a utilizar por las tablas, debería ir en cada componente y no acá -->
 <div class="table-container">
-    <h4 class="title">El libro diario podría verse así...</h4>
     <table class="table is-fullwidth is-hoverable is-bordered">
         <thead>
             <tr>
@@ -54,5 +53,49 @@
                 <td></td>
             </tr>
         </tbody>
+        <!--
+            <ng-container *ngFor="let asiento of getAsientos(); let i = index;">
+                <tr>
+                    <td [attr.rowspan]="tamanhoFilas(i)" class="is-vertical-center">{{ asiento.nro_asiento }}</td>
+                    <td [attr.rowspan]="tamanhoFilas(i)" class="is-vertical-center">{{ asiento.fecha }}</td>
+                    <ng-container *ngFor="let movimiento of asiento.movimientos;">
+                            <tr>
+                                <td>{{ movimiento.nombre }}</td>
+                                <td>{{ movimiento.monto }}</td>
+                                <td>{{ movimiento.monto }}</td>
+                            </tr>
+                    </ng-container>
+                </tr>
+            </ng-container>
+
+        
+                <td colspan=3>
+                    <table>
+                        <tr *ngFor="let movimiento of asiento.movimientos;">
+                            <td>{{ movimiento.nombre }}</td>
+                            <td>{{ movimiento.monto }}</td>
+                            <td>{{ movimiento.monto }}</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+             
+            <div *ngFor="let asiento of getAsientos(); let i = index;">
+                <tr>
+                    <td [attr.rowspan]="tamanhoFilas(i)" class="is-vertical-center">{{ asiento.nro_asiento }}</td>
+                    <td [attr.rowspan]="tamanhoFilas(i)" class="is-vertical-center">{{ asiento.fecha }}</td>
+                    <td>{{ asiento.movimientos[0].nombre }}</td>
+                    <td>{{ asiento.movimientos[0].monto }}</td>
+                    <td>{{ asiento.movimientos[0].monto }}</td>
+                </tr>
+
+                <tr *ngFor="let movimiento of asiento.movimientos | slice:1;">
+                    <td>{{ movimiento.nombre }}</td>
+                    <td>{{ movimiento.monto }}</td>
+                    <td>{{ movimiento.monto }}</td>
+                </tr>
+            </div>
+            
+        </tbody>-->
     </table>
 </div>

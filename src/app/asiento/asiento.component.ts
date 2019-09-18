@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl, FormArray } from '@angular/forms';
 
-import { Asiento, Movimiento } from './asiento.model';
+import { Asiento } from './asiento.model';
 import { Cuenta } from 'src/app/cuenta/cuenta.model';
 import { CuentaService } from '../cuenta.service';
 import { AsientoService } from '../asiento.service';
@@ -28,6 +28,7 @@ export class AsientoComponent implements OnInit {
   faMinus = faMinus;
 
   fechaHoy = new Date().toISOString().substring(0, 10);
+
   cuentas: Cuenta[];
   asientos: Asiento[];
 
@@ -35,6 +36,7 @@ export class AsientoComponent implements OnInit {
   private asientosSub: Subscription;
 
   tipos = ['Debe', 'Haber'];
+
   asientoForm: FormGroup;
   movimientos: FormArray;
 

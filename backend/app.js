@@ -14,13 +14,9 @@ app.use((req, res, next) => {
 });
 
 app.get('/cuentas', db.getCuentas);
-app.get('/cuentas/:id', db.getCuentaById);
 app.post('/cuentas', db.crearCuenta);
 
 app.get('/asientos', db.getAsientos);
 app.post('/asientos', db.crearAsiento);
-
-app.get('/movimientos', db.getMovimientos);
-// app.post('/movimientos', db.crearMovimiento);
 
 module.exports = app;

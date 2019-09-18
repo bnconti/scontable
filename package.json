@@ -28,6 +28,7 @@
     "express": "^4.17.1",
     "pg": "^7.12.1",
     "pg-hstore": "^2.3.3",
+    "pg-promise": "^9.1.4",
     "rxjs": "~6.4.0",
     "sequelize": "^5.18.4",
     "sequelize-cli": "^5.5.1",

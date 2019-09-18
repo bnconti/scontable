@@ -1,4 +1,4 @@
-const Pool = require('pg').Pool
+const { Pool } = require('pg')
 
 const pool = new Pool({
     user: 'postgres',
@@ -8,20 +8,11 @@ const pool = new Pool({
     port: 5432,
 });
 
+
 const getCuentas = (request, response) => {
     pool.query('SELECT * FROM cuenta', (error, results) => {
         if (error) throw error;
         response.status(200).json(results.rows)
-    });
-};
-
-const getCuentaById = (req, res) => {
-    const idcuenta = parseInt(req.params.id);
-
-    // Tirar error cuando el ID no existe.
-    pool.query('SELECT * FROM cuenta WHERE idcuenta = $1', [idcuenta], (error, results) => {
-        if (error) throw error;
-        res.status(200).json(results.rows);
     });
 };
 
@@ -36,19 +27,26 @@ const crearCuenta = (request, response) => {
     });
 };
 
-const getAsientos = (request, response) => {
-    pool.query('SELECT * FROM asiento', (error, results) => {
-        if (error) throw error;
-        response.status(200).json(results.rows);
-    });
-};
 
-const getMovimientos = (request, response) => {
-    pool.query('SELECT * FROM movimiento', (error, results) => {
-        if (error) throw error;
-        response.status(200).json(results.rows);
-    });
-};
+const getAsientos = (request, response) => {
+    const query = 
+    `SELECT a.nro_asiento, to_json(a.fecha) AS fecha,
+        (SELECT json_agg(json_build_object('monto', m.monto, 
+        'tipo_mov', m.tipo_mov, 'nombre', c.nombre, 'nro_cta', c.nro_cta))
+        FROM movimiento AS m
+        INNER JOIN cuenta AS c on m.idcuenta = c.idcuenta
+        WHERE m.idasiento = a.idasiento ) AS movimientos
+    FROM asiento AS a;`;
+
+    pool.query(query, (error, results) => {
+        if (error) {
+            throw error;
+        } else {
+            console.dir(JSON.stringify(results.rows));
+            response.status(200).json(results.rows);
+        }
+    })
+}
 
 const crearAsiento = (request, response) => {
     const queryAsiento = 'INSERT INTO asiento (idusuario, fecha) VALUES ($1, $2) RETURNING idasiento';
@@ -75,18 +73,5 @@ const crearAsiento = (request, response) => {
     });
 };
 
-const crearMovimiento = (request, response) => {
-    const query = 'INSERT INTO movimiento (idasiento, idcuenta, monto, tipo_mov) VALUES ($1, $2, $3, $4)';
-    const { idasiento, idcuenta, monto, tipo_mov } = request.body;
 
-    pool.query(query, [idasiento, idcuenta, monto, tipo_mov], error => {
-        if (error) throw error;
-        response.status(201).json({ status: 'success', message: 'Movimiento agregado' });
-    });
-};
-
-module.exports = {
-    getCuentas, getCuentaById, crearCuenta,
-    getAsientos, crearAsiento,
-    getMovimientos, crearMovimiento,
-};
+module.exports = { getCuentas, crearCuenta, getAsientos, crearAsiento };

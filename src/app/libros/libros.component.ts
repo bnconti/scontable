@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Cuenta } from 'src/app/cuenta/cuenta.model';
 import { CuentaService } from '../cuenta.service';
 import { Subscription } from 'rxjs';
+import { AsientoService } from '../asiento.service';
+import { Asiento } from '../asiento/asiento.model';
+import { Cuenta } from '../cuenta/cuenta.model';
 
 @Component({
   selector: 'app-libros',
@@ -10,12 +12,15 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./libros.component.css']
 })
 export class LibrosComponent implements OnInit {
-  cuentas: Cuenta[];
+  private asientos: Asiento[];
+  private asientosSub: Subscription;
+
+  private cuentas: Cuenta[];
   private cuentasSub: Subscription;
 
   /* ------------------------- */
 
-  constructor(public cuentasService: CuentaService) { }
+  constructor(public asientoService: AsientoService, public cuentasService: CuentaService) { }
 
   ngOnInit() {
     this.cuentasService.traerCuentas();
@@ -23,6 +28,23 @@ export class LibrosComponent implements OnInit {
       .subscribe((cuentas: Cuenta[]) => {
         this.cuentas = cuentas;
       });
+
+    this.asientoService.traerAsientos();
+    this.asientosSub = this.asientoService.traerObservadorAsientos()
+      .subscribe((asientos: Asiento[]) => {
+        this.asientos = asientos;
+      });
   }
 
+  public getAsientos(): Asiento[] {
+    return this.asientos;
+  }
+
+  public getCuentas(): Cuenta[] {
+    return this.cuentas;
+  }
+
+  public tamanhoFilas(i: number): number {
+    return this.asientos[i].movimientos.length;
+  }
 }

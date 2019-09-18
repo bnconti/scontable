@@ -1,15 +1,14 @@
 export interface Asiento {
     idasiento?: number;
-    idusuario: number;
+    idusuario?: number;
     fecha: string;
     nro_asiento?: number;
     movimientos?: Movimiento[];
 }
 
 export interface Movimiento {
-    idasiento: number;
-    idmovimiento?: number;
-    idcuenta: number;
+    nro_cta: number;
+    nombre: string;
     monto: number;
     tipo_mov: string;
 }
