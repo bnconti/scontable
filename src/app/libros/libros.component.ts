@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { CuentaService } from '../cuenta.service';
 import { Subscription } from 'rxjs';
 import { AsientoService } from '../asiento.service';
-import { Asiento } from '../asiento/asiento.model';
+import { Asiento, Movimiento } from '../asiento/asiento.model';
 import { Cuenta } from '../cuenta/cuenta.model';
 
 @Component({
@@ -46,5 +46,9 @@ export class LibrosComponent implements OnInit {
 
   public tamanhoFilas(i: number): number {
     return this.asientos[i].movimientos.length;
+  }
+
+  public sliceMovimientos(i: number): Movimiento[] {
+    return this.asientos[i].movimientos.slice(1);
   }
 }

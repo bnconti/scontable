@@ -18,84 +18,39 @@
                 <th class="is-narrow has-text-centered">N.º</th>
                 <th class="is-narrow has-text-centered">FECHA</th>
 
-                <!-- Para un N.º y fecha de transacción puede haber distintas cuentas con sus montos... -->
-                <!-- Tabla dentro de otra tabla? -->
                 <th class="has-text-centered">DESCRIPCIÓN</th>
                 <th class="has-text-centered"><abbr title="Debe">D</abbr></th>
                 <th class="has-text-centered"><abbr title="Haber">H</abbr></th>
             </tr>
         </thead>
+
         <tbody>
-            <tr>
-                <td rowspan="2" class="is-vertical-center">1</td>
-                <!-- rowspan debería ser igual a la cant. de movimientos -->
-                <td rowspan="2" class="is-vertical-center">13/02/19</td> <!-- Esto sería el asiento -->
-                <td class="has-text-left">Banco Nación</td> <!-- Y acá arranca el mov. 1 -->
-                <td class="has-text-centered">3750</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td class="has-text-right">Valor a depositar</td> <!-- Mov. 2 -->
-                <td></td>
-                <td class="has-text-centered">3750</td>
-            </tr>
-            <tr>
-                <td rowspan="2" class="is-vertical-center">2</td>
-                <td rowspan="2" class="is-vertical-center">14/02/19</td>
-                <td class="has-text-right">Banco Nación</td>
-                <!-- Si es haber tiene que formatear el texto a la derecha -->
-                <td></td>
-                <td class="has-text-centered">1200</td>
-            </tr>
-            <tr>
-                <td>Obligaciones a pagar</td>
-                <td class="has-text-centered">1200</td>
-                <td></td>
-            </tr>
-        </tbody>
-        <!--
             <ng-container *ngFor="let asiento of getAsientos(); let i = index;">
                 <tr>
-                    <td [attr.rowspan]="tamanhoFilas(i)" class="is-vertical-center">{{ asiento.nro_asiento }}</td>
-                    <td [attr.rowspan]="tamanhoFilas(i)" class="is-vertical-center">{{ asiento.fecha }}</td>
-                    <ng-container *ngFor="let movimiento of asiento.movimientos;">
-                            <tr>
-                                <td>{{ movimiento.nombre }}</td>
-                                <td>{{ movimiento.monto }}</td>
-                                <td>{{ movimiento.monto }}</td>
-                            </tr>
-                    </ng-container>
+                    <td class="has-text-centered" [attr.rowspan]="tamanhoFilas(i)" class="is-vertical-center">
+                        {{ asiento.nro_asiento }}</td>
+                    <td class="has-text-centered" [attr.rowspan]="tamanhoFilas(i)" class="is-vertical-center">
+                        {{ asiento.fecha | date: 'dd/MM/yyyy' }}</td>
+                    <td [ngClass]="{'has-text-right': asiento.movimientos[0].tipo_mov === 'Haber'}">
+                        {{ asiento.movimientos[0].nombre }}</td>
+                    <td class="has-text-centered"
+                        [innerText]="asiento.movimientos[0].tipo_mov === 'Debe' ? asiento.movimientos[0].monto : ''">
+                    </td>
+                    <td class="has-text-centered"
+                        [innerText]="asiento.movimientos[0].tipo_mov === 'Haber' ? asiento.movimientos[0].monto : ''">
+                    </td>
                 </tr>
+                <ng-container *ngFor="let movimiento of sliceMovimientos(i)">
+                    <tr>
+                        <td [ngClass]="{'has-text-right': movimiento.tipo_mov === 'Haber'}">{{ movimiento.nombre }}</td>
+                        <td class="has-text-centered"
+                            [innerText]="movimiento.tipo_mov === 'Debe' ? movimiento.monto: ''"></td>
+                        <td class="has-text-centered"
+                            [innerText]="movimiento.tipo_mov === 'Haber' ? movimiento.monto: ''"></td>
+                    </tr>
+                </ng-container>
             </ng-container>
+        </tbody>
 
-        
-                <td colspan=3>
-                    <table>
-                        <tr *ngFor="let movimiento of asiento.movimientos;">
-                            <td>{{ movimiento.nombre }}</td>
-                            <td>{{ movimiento.monto }}</td>
-                            <td>{{ movimiento.monto }}</td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-             
-            <div *ngFor="let asiento of getAsientos(); let i = index;">
-                <tr>
-                    <td [attr.rowspan]="tamanhoFilas(i)" class="is-vertical-center">{{ asiento.nro_asiento }}</td>
-                    <td [attr.rowspan]="tamanhoFilas(i)" class="is-vertical-center">{{ asiento.fecha }}</td>
-                    <td>{{ asiento.movimientos[0].nombre }}</td>
-                    <td>{{ asiento.movimientos[0].monto }}</td>
-                    <td>{{ asiento.movimientos[0].monto }}</td>
-                </tr>
-
-                <tr *ngFor="let movimiento of asiento.movimientos | slice:1;">
-                    <td>{{ movimiento.nombre }}</td>
-                    <td>{{ movimiento.monto }}</td>
-                    <td>{{ movimiento.monto }}</td>
-                </tr>
-            </div>
-            
-        </tbody>-->
     </table>
 </div>
