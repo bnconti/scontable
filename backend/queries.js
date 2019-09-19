@@ -42,7 +42,6 @@ const getAsientos = (request, response) => {
         if (error) {
             throw error;
         } else {
-            console.dir(JSON.stringify(results.rows));
             response.status(200).json(results.rows);
         }
     })

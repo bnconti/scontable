@@ -31,7 +31,7 @@ export class CuentaService {
   agregarCuenta(nro: number, nombre: string, tipo: string) {
     const cuenta: Cuenta = { nro_cta: nro, nombre, tipo_cta: tipo };
     this.http.post<{ mensaje: string }>('http://localhost:3000/cuentas', cuenta)
-      .subscribe((respuesta) => {
+      .subscribe(() => {
         this.cuentas.push(cuenta);
         this.actualizacionCuentas.next([...this.cuentas]);
       });

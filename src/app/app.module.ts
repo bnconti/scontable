@@ -16,6 +16,11 @@ import { LibroDiarioComponent } from './libros/libro-diario/libro-diario.compone
 import { LibroMayorComponent } from './libros/libro-mayor/libro-mayor.component';
 import { Error404Component } from './error404/error404.component';
 
+import { registerLocaleData } from '@angular/common';
+import esAR from '@angular/common/locales/es-AR';
+
+registerLocaleData(esAR, 'esAR');
+
 const appRoutes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: '**', component: Error404Component }

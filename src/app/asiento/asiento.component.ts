@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, FormArray } from '@angular/forms';
 
-import { Asiento } from './asiento.model';
+import { Asiento, Movimiento } from './asiento.model';
 import { Cuenta } from 'src/app/cuenta/cuenta.model';
 import { CuentaService } from '../cuenta.service';
 import { AsientoService } from '../asiento.service';
@@ -30,10 +30,7 @@ export class AsientoComponent implements OnInit {
   fechaHoy = new Date().toISOString().substring(0, 10);
 
   cuentas: Cuenta[];
-  asientos: Asiento[];
-
   private cuentasSub: Subscription;
-  private asientosSub: Subscription;
 
   tipos = ['Debe', 'Haber'];
 
@@ -51,12 +48,6 @@ export class AsientoComponent implements OnInit {
         this.cuentas = cuentas;
       });
 
-    this.asientoService.traerAsientos();
-    this.asientosSub = this.asientoService.traerObservadorAsientos()
-      .subscribe((asientos: Asiento[]) => {
-        this.asientos = asientos;
-      });
-
     this.asientoForm = this.fb.group({
       fecha: [this.fechaHoy, [Validators.required]],
       movimientos: this.fb.array([this.crearMovimiento(), this.crearMovimiento()], [this.validarBalanceoMovimientos])
@@ -72,7 +63,12 @@ export class AsientoComponent implements OnInit {
   }
 
   agregarAsiento() {
-    this.asientoService.agregarAsiento(1, this.asientoForm.value.fecha, this.asientoForm.value.movimientos);
+    // TODO: si se hace el usuario, cambiar el 1 por su ID.
+    const idusuario = 1;
+    const fecha: string = this.asientoForm.value.fecha;
+    const movimientos: Movimiento[] = this.asientoForm.value.movimientos;
+
+    this.asientoService.agregarAsiento(idusuario, fecha, movimientos);
     this.asientoForm.reset();
   }
 

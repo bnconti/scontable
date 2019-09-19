@@ -29,11 +29,17 @@ export class LibrosComponent implements OnInit {
         this.cuentas = cuentas;
       });
 
-    this.asientoService.traerAsientos();
-    this.asientosSub = this.asientoService.traerObservadorAsientos()
-      .subscribe((asientos: Asiento[]) => {
-        this.asientos = asientos;
-      });
+    this.asientosSub = this.asientoService.traerObservadorAsientos().subscribe(() => {
+      this.getAllAsientos();
+    });
+
+    this.getAllAsientos();
+  }
+
+  private getAllAsientos() {
+    this.asientoService.traerAsientos().subscribe(
+      (asientos: Asiento[]) => this.asientos = asientos
+    );
   }
 
   public getAsientos(): Asiento[] {

@@ -19,8 +19,8 @@
                 <th class="is-narrow has-text-centered">FECHA</th>
 
                 <th class="has-text-centered">DESCRIPCIÓN</th>
-                <th class="has-text-centered"><abbr title="Debe">D</abbr></th>
-                <th class="has-text-centered"><abbr title="Haber">H</abbr></th>
+                <th class="has-text-centered is-narrow"><abbr title="Debe">D</abbr></th>
+                <th class="has-text-centered is-narrow"><abbr title="Haber">H</abbr></th>
             </tr>
         </thead>
 
@@ -34,19 +34,19 @@
                     <td [ngClass]="{'has-text-right': asiento.movimientos[0].tipo_mov === 'Haber'}">
                         {{ asiento.movimientos[0].nombre }}</td>
                     <td class="has-text-centered"
-                        [innerText]="asiento.movimientos[0].tipo_mov === 'Debe' ? asiento.movimientos[0].monto : ''">
+                        [innerText]="asiento.movimientos[0].tipo_mov === 'Debe' ? (asiento.movimientos[0].monto | currency:'ARS':'symbol':'1.2-2':'esAR') : ''">
                     </td>
                     <td class="has-text-centered"
-                        [innerText]="asiento.movimientos[0].tipo_mov === 'Haber' ? asiento.movimientos[0].monto : ''">
+                        [innerText]="asiento.movimientos[0].tipo_mov === 'Haber' ? (asiento.movimientos[0].monto | currency:'ARS':'symbol':'1.2-2':'esAR') : ''">
                     </td>
                 </tr>
                 <ng-container *ngFor="let movimiento of sliceMovimientos(i)">
                     <tr>
                         <td [ngClass]="{'has-text-right': movimiento.tipo_mov === 'Haber'}">{{ movimiento.nombre }}</td>
                         <td class="has-text-centered"
-                            [innerText]="movimiento.tipo_mov === 'Debe' ? movimiento.monto: ''"></td>
+                            [innerText]="movimiento.tipo_mov === 'Debe' ? (movimiento.monto | currency:'ARS':'symbol':'1.2-2':'esAR') : ''"></td>
                         <td class="has-text-centered"
-                            [innerText]="movimiento.tipo_mov === 'Haber' ? movimiento.monto: ''"></td>
+                            [innerText]="movimiento.tipo_mov === 'Haber' ? (movimiento.monto | currency:'ARS':'symbol':'1.2-2':'esAR') : ''"></td>
                     </tr>
                 </ng-container>
             </ng-container>
