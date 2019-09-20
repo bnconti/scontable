@@ -45,15 +45,15 @@
                                 </i>
                             </span>
                             <div class="select is-fullwidth">
-                                <select formControlName="nro_cta">
+                                <select formControlName="cuenta">
                                     <option>Seleccione</option>
-                                    <option *ngFor="let cuenta of cuentas" value="{{ cuenta.nro_cta }}">
+                                    <option *ngFor="let cuenta of cuentas" [ngValue]="cuenta">
                                         {{ cuenta.nombre }} ({{ cuenta.nro_cta }})
                                     </option>
                                 </select>
                             </div>
                             <p class="help is-danger"
-                                *ngIf="movimiento.get('nro_cta').invalid && movimiento.get('nro_cta').touched">
+                                *ngIf="movimiento.get('cuenta').invalid && movimiento.get('cuenta').touched">
                                 Seleccione una cuenta.</p>
                         </div>
                     </div>
@@ -79,11 +79,11 @@
                 <div class="column is-2">
                     <div class="field">
                         <label class="label">Tipo</label>
-                        <div *ngFor="let tipo of tipos">
+                        <div *ngFor="let tipo_mov of tipos">
                             <label class="radio">
-                                <input name="tipo" [value]="tipo" [attr.name]="tipo + i" type="radio"
-                                    formControlName="tipo" required>
-                                {{ tipo }}
+                                <input name="tipo_mov" [value]="tipo_mov" [attr.name]="tipo_mov + i" type="radio"
+                                    formControlName="tipo_mov" required>
+                                {{ tipo_mov }}
                             </label>
                         </div>
                     </div>

@@ -12,7 +12,7 @@ const pool = new Pool({
 const getCuentas = (request, response) => {
     pool.query('SELECT * FROM cuenta', (error, results) => {
         if (error) throw error;
-        response.status(200).json(results.rows)
+        response.status(200).json(results.rows);
     });
 };
 
@@ -29,8 +29,8 @@ const crearCuenta = (request, response) => {
 
 
 const getAsientos = (request, response) => {
-    const query = 
-    `SELECT a.nro_asiento, to_json(a.fecha) AS fecha,
+    const query =
+        `SELECT a.idasiento, a.nro_asiento, to_json(a.fecha) AS fecha, a.idusuario,
         (SELECT json_agg(json_build_object('monto', m.monto, 
         'tipo_mov', m.tipo_mov, 'nombre', c.nombre, 'nro_cta', c.nro_cta))
         FROM movimiento AS m
@@ -45,7 +45,7 @@ const getAsientos = (request, response) => {
             response.status(200).json(results.rows);
         }
     })
-}
+};
 
 const crearAsiento = (request, response) => {
     const queryAsiento = 'INSERT INTO asiento (idusuario, fecha) VALUES ($1, $2) RETURNING idasiento';
@@ -56,21 +56,15 @@ const crearAsiento = (request, response) => {
         if (err) throw err;
         else {
             const idasiento = result.rows[0].idasiento;
-            movimientos.forEach(movimiento => {
-                pool.query('SELECT idcuenta FROM cuenta WHERE nro_cta = $1', [movimiento.nro_cta], (err, result) => {
+            movimientos.forEach(function (movimiento) {
+                let idcuenta = movimiento.cuenta.idcuenta;
+                pool.query(queryMov, [idasiento, idcuenta, movimiento.monto, movimiento.tipo_mov], err => {
                     if (err) throw err;
-                    else {
-                        const idcuenta = result.rows[0].idcuenta;
-                        pool.query(queryMov, [idasiento, idcuenta, movimiento.monto, movimiento.tipo], err => {
-                            if (err) throw err;
-                        })
-                    }
-                })
+                });
             });
             response.status(201).json({ status: 'success', message: 'Asiento agregado' });
         }
     });
 };
-
 
 module.exports = { getCuentas, crearCuenta, getAsientos, crearAsiento };

@@ -1,5 +1,9 @@
 <h1 class="title">Seleccione un libro o cuenta</h1>
 
+<ol>
+    <li *ngFor="let asiento of getAsientos()">{{ convertirEnString(asiento) }}</li>
+</ol>
+
 <hr>
 
 <div class="tabs is-boxed" style="overflow-x: scroll;">
@@ -44,9 +48,11 @@
                     <tr>
                         <td [ngClass]="{'has-text-right': movimiento.tipo_mov === 'Haber'}">{{ movimiento.nombre }}</td>
                         <td class="has-text-centered"
-                            [innerText]="movimiento.tipo_mov === 'Debe' ? (movimiento.monto | currency:'ARS':'symbol':'1.2-2':'esAR') : ''"></td>
+                            [innerText]="movimiento.tipo_mov === 'Debe' ? (movimiento.monto | currency:'ARS':'symbol':'1.2-2':'esAR') : ''">
+                        </td>
                         <td class="has-text-centered"
-                            [innerText]="movimiento.tipo_mov === 'Haber' ? (movimiento.monto | currency:'ARS':'symbol':'1.2-2':'esAR') : ''"></td>
+                            [innerText]="movimiento.tipo_mov === 'Haber' ? (movimiento.monto | currency:'ARS':'symbol':'1.2-2':'esAR') : ''">
+                        </td>
                     </tr>
                 </ng-container>
             </ng-container>

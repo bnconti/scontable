@@ -1,3 +1,5 @@
+import { Cuenta } from '../cuenta/cuenta.model';
+
 export interface Asiento {
     idasiento?: number;
     idusuario?: number;
@@ -11,4 +13,5 @@ export interface Movimiento {
     nombre: string;
     monto: number;
     tipo_mov: string;
+    cuenta?: Cuenta;
 }

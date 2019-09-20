@@ -7,7 +7,6 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class CuentaService {
-
   cuentas: Cuenta[];
   private actualizacionCuentas = new Subject<Cuenta[]>();
 
@@ -29,11 +28,15 @@ export class CuentaService {
   }
 
   agregarCuenta(nro: number, nombre: string, tipo: string) {
-    const cuenta: Cuenta = { nro_cta: nro, nombre, tipo_cta: tipo };
+    const cuenta: Cuenta = { idcuenta: this.nuevoId(), nro_cta: nro, nombre, tipo_cta: tipo };
     this.http.post<{ mensaje: string }>('http://localhost:3000/cuentas', cuenta)
       .subscribe(() => {
         this.cuentas.push(cuenta);
         this.actualizacionCuentas.next([...this.cuentas]);
       });
+  }
+
+  nuevoId(): number {
+    return this.cuentas[this.cuentas.length-1].idcuenta + 1;
   }
 }

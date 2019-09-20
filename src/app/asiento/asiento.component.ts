@@ -57,8 +57,8 @@ export class AsientoComponent implements OnInit {
   crearMovimiento(): FormGroup {
     return this.fb.group({
       monto: ['', [Validators.required]],
-      tipo: ['', [Validators.required]],
-      nro_cta: ['Seleccione', [Validators.required, this.validarValorCuenta]]
+      tipo_mov: ['', [Validators.required]],
+      cuenta: ['Seleccione', [Validators.required, this.validarValorCuenta]],
     });
   }
 
@@ -73,13 +73,11 @@ export class AsientoComponent implements OnInit {
   }
 
   agregarMovimiento() {
-    this.movimientos = this.asientoForm.get('movimientos') as FormArray;
-    this.movimientos.push(this.crearMovimiento());
+    this.traerMovimientos.push(this.crearMovimiento());
   }
 
   quitarMovimiento(i: number) {
-    this.movimientos = this.asientoForm.get('movimientos') as FormArray;
-    this.movimientos.removeAt(i);
+    this.traerMovimientos.removeAt(i);
   }
 
   get traerMovimientos() {

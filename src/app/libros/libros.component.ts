@@ -29,17 +29,11 @@ export class LibrosComponent implements OnInit {
         this.cuentas = cuentas;
       });
 
-    this.asientosSub = this.asientoService.traerObservadorAsientos().subscribe(() => {
-      this.getAllAsientos();
-    });
-
-    this.getAllAsientos();
-  }
-
-  private getAllAsientos() {
-    this.asientoService.traerAsientos().subscribe(
-      (asientos: Asiento[]) => this.asientos = asientos
-    );
+    this.asientoService.traerAsientos();
+    this.asientosSub = this.asientoService.traerObservadorAsientos()
+      .subscribe((asientos: Asiento[]) => {
+        this.asientos = asientos;
+      })
   }
 
   public getAsientos(): Asiento[] {
@@ -56,5 +50,9 @@ export class LibrosComponent implements OnInit {
 
   public sliceMovimientos(i: number): Movimiento[] {
     return this.asientos[i].movimientos.slice(1);
+  }
+
+  public convertirEnString(obj) {
+    return JSON.stringify(obj);
   }
 }
