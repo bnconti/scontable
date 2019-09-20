@@ -94,9 +94,10 @@ export class AsientoComponent implements OnInit {
     /* Para que esté balanceado, la diferencia entre debe y haber debe ser 0 */
     let total = 0;
     for (const movimiento of control.value) {
-      if (movimiento.tipo === 'Debe') {
+      console.log(movimiento);
+      if (movimiento.tipo_mov === 'Debe') {
         total += Number(movimiento.monto);
-      } else if (movimiento.tipo === 'Haber') {
+      } else if (movimiento.tipo_mov === 'Haber') {
         total -= Number(movimiento.monto);
       }
     }
