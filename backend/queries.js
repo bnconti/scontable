@@ -66,5 +66,19 @@ const crearAsiento = (request, response) => {
         }
     });
 };
+const getMayor = (request, response) => {
+    const query =
+        `Select c.nombre, c.idcuenta, m.tipo_mov, m.monto from movimiento m 
+        inner join cuenta c on m.idcuenta= c.idcuenta
+        order by c.idcuenta`;
 
-module.exports = { getCuentas, crearCuenta, getAsientos, crearAsiento };
+    pool.query(query, (error, results) => {
+        if (error) {
+            throw error;
+        } else {
+            response.status(200).json(results.rows);
+        }
+    })
+};
+
+module.exports = { getCuentas, crearCuenta, getAsientos, crearAsiento,getMayor };
