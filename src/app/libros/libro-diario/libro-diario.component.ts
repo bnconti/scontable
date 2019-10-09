@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { CuentaService } from '../../cuenta.service';
+import { CuentaService } from 'src/app/cuenta.service';
 import { Subscription } from 'rxjs';
-import { AsientoService } from '../../asiento.service';
-import { Asiento, Movimiento } from '../../asiento/asiento.model';
-import { Cuenta } from '../../cuenta/cuenta.model';
+import { AsientoService } from 'src/app/asiento.service';
+import { Asiento, Movimiento } from 'src/app/asiento/asiento.model';
+import { Cuenta } from 'src/app/cuenta/cuenta.model';
 
 @Component({
   selector: 'app-libro-diario',
