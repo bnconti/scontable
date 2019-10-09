@@ -2,15 +2,16 @@
 
 <hr>
 
-<div class="tabs is-boxed" style="overflow-x: scroll;">
+<div class="tabs is-boxed">
     <ul>
-        <li class="is-active"><a>Libro mayor</a></li>
-        <li><a>Libro diario</a></li>
-        <li *ngFor="let cuenta of getCuentas()"><a href="#">{{ cuenta.nombre }}</a></li>
+        <li class="is-active"><a>Libro diario</a></li>
+        <li><a>Libro mayor</a></li>
+       <!-- <li *ngFor="let cuenta of getCuentas()"><a href="#">{{ cuenta.nombre }}</a></li> -->
     </ul>
 </div>
-
-<!-- Formato tentativo a utilizar por las tablas, debería ir en cada componente y no acá -->
+<!-- aca tendriamos que ver lo del ruteo. -->
+<app-libro-diario></app-libro-diario>
+<!-- Formato tentativo a utilizar por las tablas, debería ir en cada componente y no acá 
 <div class="table-container">
     <table class="table is-fullwidth is-hoverable is-bordered">
         <thead>
@@ -56,3 +57,4 @@
 
     </table>
 </div>
+-->
