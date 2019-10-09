@@ -18,5 +18,5 @@ app.post('/cuentas', db.crearCuenta);
 
 app.get('/asientos', db.getAsientos);
 app.post('/asientos', db.crearAsiento);
-
+app.get('/mayor', db.getMayor);
 module.exports = app;
