@@ -1,1 +1,8 @@
 <p>Acá va a estar el libro mayor.</p>
+
+<ng-container *ngFor="let cuenta of getMovimientos()">
+    <li>{{ cuenta.nombre_cta }}</li>
+    <ng-container *ngFor="let mov of cuenta.movimientos; let i = index;">
+        <li>{{ i }}: {{ mov.tipo_mov }} {{ mov.monto }} </li>
+    </ng-container>
+</ng-container>

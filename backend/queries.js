@@ -66,11 +66,13 @@ const crearAsiento = (request, response) => {
         }
     });
 };
-const getMayor = (request, response) => {
+
+const getMovimientosPorCuenta = (request, response) => {
     const query =
-        `Select c.nombre, c.idcuenta, m.tipo_mov, m.monto from movimiento m 
-        inner join cuenta c on m.idcuenta= c.idcuenta
-        order by c.idcuenta`;
+        `SELECT c.nombre AS nombre_cta, json_agg(json_build_object('monto', m.monto, 'tipo_mov', m.tipo_mov)) AS movimientos
+        FROM cuenta c
+        INNER JOIN movimiento m ON c.idcuenta = m.idcuenta
+        GROUP BY c.nombre`;
 
     pool.query(query, (error, results) => {
         if (error) {
@@ -81,4 +83,4 @@ const getMayor = (request, response) => {
     })
 };
 
-module.exports = { getCuentas, crearCuenta, getAsientos, crearAsiento,getMayor };
+module.exports = { getCuentas, crearCuenta, getAsientos, crearAsiento, getMovimientosPorCuenta };

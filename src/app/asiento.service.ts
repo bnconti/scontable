@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Asiento, Movimiento } from './asiento/asiento.model';
+import { Asiento, Movimiento, CuentaMayor } from './asiento/asiento.model';
 import { HttpClient } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,9 @@ import { HttpClient } from '@angular/common/http';
 export class AsientoService {
   asientos: Asiento[];
   private actualizacionAsientos = new Subject<Asiento[]>();
+
+  movimientos: CuentaMayor[];
+  private actualizacionMovimientos = new Subject<CuentaMayor[]>();
 
   /* ------------------------- */
 
@@ -21,11 +25,24 @@ export class AsientoService {
         this.actualizacionAsientos.next([...this.asientos]);
       });
     return this.asientos;
-  };
+  }
 
   traerObservadorAsientos() {
     return this.actualizacionAsientos.asObservable();
-  };
+  }
+
+  traerMovimientos() {
+    this.http.get<CuentaMayor[]>('http://localhost:3000/movimientos')
+      .subscribe((res) => {
+        this.movimientos = res;
+        this.actualizacionMovimientos.next([...this.movimientos]);
+      });
+    return this.movimientos;
+  }
+
+  traerObservadorMovimientos() {
+    return this.actualizacionMovimientos;
+  }
 
   agregarAsiento(idusuario: number, fecha: string, movimientos: Movimiento[]) {
     const asiento: Asiento = { idasiento: this.nuevoId(), nro_asiento: this.nuevoId(), fecha, idusuario, movimientos };
@@ -37,11 +54,12 @@ export class AsientoService {
           delete movimiento.cuenta;
         });
         this.asientos.push(asiento);
+        // TODO: this.movimientos.push(movimientos);
         this.actualizacionAsientos.next([...this.asientos]);
       });
-  };
+  }
 
   nuevoId(): number {
     return this.asientos[this.asientos.length - 1].idasiento + 1;
-  };
-};
+  }
+}

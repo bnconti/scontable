@@ -15,3 +15,13 @@ export interface Movimiento {
     tipo_mov: string;
     cuenta?: Cuenta;
 }
+
+export interface MovMayor {
+    monto: number;
+    tipo_mov: string;
+}
+
+export interface CuentaMayor {
+    nombre_cta: string;
+    movimientos: MovMayor[];
+}

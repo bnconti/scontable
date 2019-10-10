@@ -33,7 +33,7 @@ export class LibrosComponent implements OnInit {
     this.asientosSub = this.asientoService.traerObservadorAsientos()
       .subscribe((asientos: Asiento[]) => {
         this.asientos = asientos;
-      })
+      });
   }
 
   public getAsientos(): Asiento[] {
