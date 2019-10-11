@@ -20,6 +20,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { registerLocaleData } from '@angular/common';
 import esAR from '@angular/common/locales/es-AR';
+import { AppRoutingModule } from './app-routing.module';
 
 registerLocaleData(esAR, 'esAR');
 
@@ -50,7 +51,8 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     FontAwesomeModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
