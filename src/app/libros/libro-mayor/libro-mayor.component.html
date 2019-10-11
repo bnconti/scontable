@@ -6,3 +6,26 @@
         <li>{{ i }}: {{ mov.tipo_mov }} {{ mov.monto }} </li>
     </ng-container>
 </ng-container>
+
+<!--Buscador de cuentas-->
+<input type="text" [(ngModel)]="cta" placeholder="Ingrese la cuenta a buscar" class="input is-medium">
+<div class="table-container is-scrollable">    
+    <table  class="table is-fullwidth is-hoverable is-bordered">
+        <thead>
+            <tr>
+                <th class="is-narrow has-text-centered">N.º</th>
+                <th class="is-narrow has-text-centered">Nombre</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let cuenta of getCuentas() |filter:cta">
+                <tr> 
+                    <td class="has-text-centered" class="is-vertical-center">
+                        {{ cuenta.nro_cta }}</td>
+                    <td class="has-text-centered" class="is-vertical-center">
+                        {{ cuenta.nombre }}</td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+</div>

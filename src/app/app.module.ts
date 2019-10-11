@@ -15,6 +15,8 @@ import { LibrosComponent } from './libros/libros.component';
 import { LibroDiarioComponent } from './libros/libro-diario/libro-diario.component';
 import { LibroMayorComponent } from './libros/libro-mayor/libro-mayor.component';
 import { Error404Component } from './error404/error404.component';
+// modulo de busqueda
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { registerLocaleData } from '@angular/common';
 import esAR from '@angular/common/locales/es-AR';
@@ -48,6 +50,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     FontAwesomeModule,
+    Ng2SearchPipeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
