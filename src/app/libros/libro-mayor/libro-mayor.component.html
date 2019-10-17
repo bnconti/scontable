@@ -18,12 +18,12 @@
             </tr>
         </thead>
         <tbody>
-            <ng-container *ngFor="let cuenta of getCuentas() |filter:cta">
+            <ng-container *ngFor="let cuenta of getMovimientos() |filter:cta">
                 <tr> 
                     <td class="has-text-centered" class="is-vertical-center">
-                        {{ cuenta.nro_cta }}</td>
+                        {{ cuenta.nro_cta}}</td>
                     <td class="has-text-centered" class="is-vertical-center">
-                        {{ cuenta.nombre }}</td>
+                        {{ cuenta.nombre_cta}}</td>
                 </tr>
             </ng-container>
         </tbody>
