@@ -69,10 +69,10 @@ const crearAsiento = (request, response) => {
 
 const getMovimientosPorCuenta = (request, response) => {
     const query =
-        `SELECT c.nombre AS nombre_cta, json_agg(json_build_object('monto', m.monto, 'tipo_mov', m.tipo_mov)) AS movimientos
+        `SELECT c.nombre AS nombre_cta, c.nro_cta, json_agg(json_build_object('monto', m.monto, 'tipo_mov', m.tipo_mov)) AS movimientos
         FROM cuenta c
         INNER JOIN movimiento m ON c.idcuenta = m.idcuenta
-        GROUP BY c.nombre`;
+        GROUP BY c.nombre, c.nro_cta`;
 
     pool.query(query, (error, results) => {
         if (error) {
