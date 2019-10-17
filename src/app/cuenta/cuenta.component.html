@@ -10,7 +10,8 @@
             <div class="field">
                 <label class="label">Nombre</label>
                 <div class="control has-icons-left has-icons-right">
-                    <input class="input" type="text" name="nombre" ngModel required #nombre="ngModel">
+                    <input class="input" type="text" name="nombre" ngModel required #nombre="ngModel"
+                        (change)="chequearNombreEnUso(nombre.value)">
                     <span class="icon is-small is-left">
                         <i>
                             <fa-icon [icon]="faScroll"></fa-icon>
@@ -18,32 +19,32 @@
                     </span>
                     <span class="icon is-small is-right">
                         <i>
-                            <fa-icon *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)"
-                                [icon]="faExclamationCircle">
+                            <fa-icon *ngIf="modelInvalido(nombre)" [icon]="faExclamationCircle">
                             </fa-icon>
                         </i>
                     </span>
                 </div>
-                <p class="help is-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">Ingrese un nombre
-                    para
-                    la cuenta.</p>
+                <p class="help is-danger" *ngIf="modelInvalido(nombre)">Ingrese un nombre
+                    para la cuenta.</p>
+                <p class="help is-danger" *ngIf="getNombreEnUso()">Ese nombre de cuenta ya está en uso.</p>
             </div>
         </div>
 
         <div class="column is-3">
             <div class="field">
                 <label class="label">Nro.</label>
-                <!-- TODO: Comprobar que el nro. de cuenta no exista antes de enviar. -->
                 <div class="control has-icons-left">
-                    <input class="input" type="number" min=1 name="nro" ngModel required #nro="ngModel">
+                    <input class="input" type="number" min=1 name="nro" ngModel required #nro="ngModel"
+                        (change)="chequearNroEnUso(nro.value)">
                     <span class="icon is-small is-left">
                         <i>
                             <fa-icon [icon]="faPen"></fa-icon>
                         </i>
                     </span>
                 </div>
-                <p class="help is-danger" *ngIf="nro.invalid && (nro.dirty || nro.touched)">Ingrese un número
+                <p class="help is-danger" *ngIf="modelInvalido(nro)">Ingrese un número
                     para la cuenta.</p>
+                <p class="help is-danger" *ngIf="getNroEnUso()">Este número de cuenta ya está en uso.</p>
             </div>
         </div>
 
@@ -61,32 +62,10 @@
 
     </div>
 
-
-    <!--   #tipo="ngModel"
-    <div class="field">
-        <label class="label">Monto inicial</label>
-        <div class="control has-icons-left has-icons-right">
-            <input class="input" type="number" min=0 name="monto" ngModel required #monto="ngModel">
-            <span class="icon is-small is-left">
-                <i>
-                    <fa-icon [icon]="faDollarSign"></fa-icon>
-                </i>
-            </span>
-            <span class="icon is-small is-right">
-                <i>
-                    <fa-icon *ngIf="monto.invalid && (monto.dirty || monto.touched)" [icon]="faExclamationCircle"></fa-icon>
-                </i>
-            </span>
-        </div>
-        <p class="help is-danger" *ngIf="monto.invalid && (monto.dirty || monto.touched)">Ingrese un monto inicial
-            para la cuenta.</p>
-    </div>
-    -->
-
     <hr>
 
     <div class="has-text-centered">
-        <button class="button is-medium is-info" type="submit" [disabled]="!formCuenta.valid">
+        <button class="button is-medium is-info" type="submit" [disabled]="formInvalido(formCuenta)">
             <span class="icon is-small is-left">
                 <i>
                     <fa-icon [icon]="faSave"></fa-icon>
@@ -94,6 +73,6 @@
             </span>
             <span>Crear</span>
         </button>
-        <p class="help is-danger" *ngIf="formCuenta.invalid">Complete el formulario para crear la cuenta.</p>
+        <p class="help is-danger" *ngIf="formInvalido(formCuenta)">Complete el formulario para crear la cuenta.</p>
     </div>
 </form>

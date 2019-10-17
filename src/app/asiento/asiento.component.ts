@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, FormArray } from '@angular/forms';
 
-import { Asiento, Movimiento } from './asiento.model';
+import { Movimiento } from './asiento.model';
 import { Cuenta } from 'src/app/cuenta/cuenta.model';
 import { CuentaService } from '../cuenta.service';
 import { AsientoService } from '../asiento.service';
@@ -94,7 +94,6 @@ export class AsientoComponent implements OnInit {
     /* Para que esté balanceado, la diferencia entre debe y haber debe ser 0 */
     let total = 0;
     for (const movimiento of control.value) {
-      console.log(movimiento);
       if (movimiento.tipo_mov === 'Debe') {
         total += Number(movimiento.monto);
       } else if (movimiento.tipo_mov === 'Haber') {

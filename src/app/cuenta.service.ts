@@ -37,6 +37,17 @@ export class CuentaService {
   }
 
   nuevoId(): number {
-    return this.cuentas[this.cuentas.length-1].idcuenta + 1;
+    return this.cuentas[this.cuentas.length - 1].idcuenta + 1;
+  }
+
+  valorEnUso(valor: string, prop: string) {
+    // Verifica si alguna 'prop' de las cuentas (p. ej. 'nombre') contiene a 'valor'.
+    if (this.cuentas !== undefined) {
+      const valores = this.cuentas.map(cuenta => cuenta[prop]);
+      if (valores.includes(valor)) {
+        return true;
+      }
+      return false;
+    }
   }
 }
