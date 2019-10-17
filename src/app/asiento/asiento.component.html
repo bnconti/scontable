@@ -2,7 +2,7 @@
 
 <hr>
 
-<form [formGroup]="asientoForm" (ngSubmit)="agregarAsiento()">
+<form [formGroup]="asientoForm" (ngSubmit)="agregarAsiento()" class="is-scrollable" >
     <div class="columns is-mobile">
         <div class="column is-half">
             <label class="label">Fecha</label>
@@ -32,7 +32,7 @@
 
     <hr>
 
-    <div formArrayName="movimientos" *ngFor="let movimiento of traerMovimientos.controls; let i = index;">
+    <div  formArrayName="movimientos" *ngFor="let movimiento of traerMovimientos.controls; let i = index;">
         <div [formGroupName]="i">
             <div class="columns is-mobile">
                 <div class="column is-5">
@@ -103,7 +103,7 @@
         <hr>
     </div>
 
-    <div class="has-text-centered">
+    <div class="has-text-centered" >
         <button class="button is-medium is-info" type="submit" [disabled]="asientoForm.invalid">
             <span class="icon is-small is-left">
                 <i>
