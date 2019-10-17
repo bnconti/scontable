@@ -1,10 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 import { CuentaService } from 'src/app/cuenta.service';
 import { Subscription } from 'rxjs';
 import { AsientoService } from 'src/app/asiento.service';
 import { Asiento, Movimiento } from 'src/app/asiento/asiento.model';
 import { Cuenta } from 'src/app/cuenta/cuenta.model';
+
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+
+import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-libro-diario',
@@ -17,6 +22,8 @@ export class LibroDiarioComponent implements OnInit {
 
   private cuentas: Cuenta[];
   private cuentasSub: Subscription;
+
+  faFilePdf = faFilePdf;
 
   /* ------------------------- */
 
@@ -36,6 +43,24 @@ export class LibroDiarioComponent implements OnInit {
       });
   }
 
+  generarPdf(ldiario) {
+    const doc = new jsPDF();
+    doc.setFontSize(12);
+    doc.setFontStyle('bold');
+
+    const fecha = new Date();
+    const opciones = { year: 'numeric', month: 'numeric', day: 'numeric' };
+    const fechaFormateada = fecha.toLocaleDateString('es-AR', opciones);
+
+    doc.text(`LIBRO DIARIO - ${fechaFormateada}`, 14, 16);
+    doc.autoTable({
+      html: ldiario,
+      theme: 'grid',
+      startY: 20
+    });
+    doc.save('ldiario.pdf');
+  }
+
   public getAsientos(): Asiento[] {
     return this.asientos;
   }
@@ -52,7 +77,7 @@ export class LibroDiarioComponent implements OnInit {
     return this.asientos[i].movimientos.slice(1);
   }
 
-  public convertirEnString(obj) {
+  public convertirEnString(obj: any) {
     return JSON.stringify(obj);
   }
 }

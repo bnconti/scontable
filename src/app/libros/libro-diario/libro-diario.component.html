@@ -1,5 +1,5 @@
 <div class="table-container is-scrollable">
-    <table class="table is-fullwidth is-hoverable is-bordered">
+    <table class="table is-fullwidth is-hoverable is-bordered" id="ldiario" #ldiario>
         <thead>
             <tr>
                 <th class="is-narrow has-text-centered">N.º</th>
@@ -43,3 +43,12 @@
 
     </table>
 </div>
+
+<button class="button is-danger is-small is-outlined" (click)="generarPdf(ldiario)">
+    <span class="icon is-small is-left">
+        <i>
+            <fa-icon [icon]="faFilePdf"></fa-icon>
+        </i>
+    </span>
+    <span>Exportar como PDF</span>
+</button>
