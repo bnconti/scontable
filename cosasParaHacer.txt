@@ -1,0 +1,6 @@
+Vista del mayor------
+Href para la busqueda------
+Fixear el crasheo del sv------
+Eliminar header-----
+Tocar Footer (Opcional)------
+Paginacion del diario------
