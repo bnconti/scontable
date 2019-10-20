@@ -12,26 +12,25 @@
     <table  class="table is-fullwidth is-hoverable is-bordered">
         <thead>
             <tr>
-                <th class="has-text-centered">CUENTAS</th>
-                <th class="is-narrow has-text-centered">D</th>
-                <th class="is-narrow has-text-centered">H</th>
+                <th class="is-narrow has-text-centered">CUENTAS</th>
+                <th class="is-narrow has-text-centered"><abbr title="Debe"></abbr>D</th>
+                <th class="is-narrow has-text-centered"><abbr title="Haber"></abbr>H</th>
             </tr>
         </thead>
         <tbody>
             <ng-container *ngFor="let cuenta of getMovimientos() |filter:cta">
                 <tr> 
-                    <td class="has-text-centered" class="is-vertical-center">
+                    <td class="has-text-centered" [attr.rowspan]="cuenta.movimientos.length+1" class="is-vertical-center">
                         {{ cuenta.nombre_cta}}</td>
                 </tr>
                 <ng-container *ngFor="let mov of cuenta.movimientos; let i = index;">
                     <tr>
-                            <td [ngClass]="{'has-text-right': mov.tipo_mov === 'Haber'}" ></td>
                             <td class="has-text-centered"
                             [innerText]="mov.tipo_mov === 'Debe' ? (mov.monto | currency:'ARS':'symbol':'1.2-2':'esAR') : ''">
-                        </td>
-                        <td class="has-text-centered"
+                            </td>
+                            <td class="has-text-centered"
                             [innerText]="mov.tipo_mov === 'Haber' ? (mov.monto | currency:'ARS':'symbol':'1.2-2':'esAR') : ''">
-                        </td>
+                            </td>
                     </tr>
                 </ng-container>
             </ng-container>
