@@ -12,7 +12,7 @@
     <table  class="table is-fullwidth is-hoverable is-bordered">
         <thead>
             <tr>
-                <th class="is-narrow has-text-centered">Nombre</th>
+                <th class="has-text-centered">CUENTAS</th>
                 <th class="is-narrow has-text-centered">D</th>
                 <th class="is-narrow has-text-centered">H</th>
             </tr>
@@ -25,7 +25,7 @@
                 </tr>
                 <ng-container *ngFor="let mov of cuenta.movimientos; let i = index;">
                     <tr>
-                            <td [ngClass]="{'has-text-right': mov.tipo_mov === 'Haber'}"></td>
+                            <td [ngClass]="{'has-text-right': mov.tipo_mov === 'Haber'}" ></td>
                             <td class="has-text-centered"
                             [innerText]="mov.tipo_mov === 'Debe' ? (mov.monto | currency:'ARS':'symbol':'1.2-2':'esAR') : ''">
                         </td>
