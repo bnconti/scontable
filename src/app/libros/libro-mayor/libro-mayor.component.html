@@ -1,30 +1,39 @@
-<p>Acá va a estar el libro mayor.</p>
-
+<!--
 <ng-container *ngFor="let cuenta of getMovimientos()">
     <li>{{ cuenta.nombre_cta }}</li>
     <ng-container *ngFor="let mov of cuenta.movimientos; let i = index;">
         <li>{{ i }}: {{ mov.tipo_mov }} {{ mov.monto }} </li>
     </ng-container>
 </ng-container>
-
+-->
 <!--Buscador de cuentas-->
 <input type="text" [(ngModel)]="cta" placeholder="Ingrese la cuenta a buscar" class="input is-medium">
 <div class="table-container is-scrollable">    
     <table  class="table is-fullwidth is-hoverable is-bordered">
         <thead>
             <tr>
-                <th class="is-narrow has-text-centered">N.º</th>
                 <th class="is-narrow has-text-centered">Nombre</th>
+                <th class="is-narrow has-text-centered">D</th>
+                <th class="is-narrow has-text-centered">H</th>
             </tr>
         </thead>
         <tbody>
             <ng-container *ngFor="let cuenta of getMovimientos() |filter:cta">
                 <tr> 
                     <td class="has-text-centered" class="is-vertical-center">
-                        {{ cuenta.nro_cta}}</td>
-                    <td class="has-text-centered" class="is-vertical-center">
                         {{ cuenta.nombre_cta}}</td>
                 </tr>
+                <ng-container *ngFor="let mov of cuenta.movimientos; let i = index;">
+                    <tr>
+                            <td [ngClass]="{'has-text-right': mov.tipo_mov === 'Haber'}"></td>
+                            <td class="has-text-centered"
+                            [innerText]="mov.tipo_mov === 'Debe' ? (mov.monto | currency:'ARS':'symbol':'1.2-2':'esAR') : ''">
+                        </td>
+                        <td class="has-text-centered"
+                            [innerText]="mov.tipo_mov === 'Haber' ? (mov.monto | currency:'ARS':'symbol':'1.2-2':'esAR') : ''">
+                        </td>
+                    </tr>
+                </ng-container>
             </ng-container>
         </tbody>
     </table>
