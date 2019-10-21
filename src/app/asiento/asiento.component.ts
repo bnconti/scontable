@@ -104,8 +104,4 @@ export class AsientoComponent implements OnInit {
     return total !== 0 ? { asientoDesbalanceado: true } : null;
   }
 
-  nuevoId() {
-    this.asientoService.nuevoId();
-  }
-
 }
