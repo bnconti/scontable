@@ -2,6 +2,8 @@
 
 <hr>
 
+<button class="button" (click)="nuevoId()">ID</button>
+
 <form [formGroup]="asientoForm" (ngSubmit)="agregarAsiento()">
     <div class="columns is-mobile">
         <div class="column is-half">
@@ -35,71 +37,87 @@
     <div class="is-scrollable">
         <div formArrayName="movimientos" *ngFor="let movimiento of traerMovimientos.controls; let i = index;">
             <div [formGroupName]="i">
-                <div class="columns is-mobile">
-                    <div class="column is-5">
-                        <div class="field">
-                            <label class="label">Cuenta</label>
-                            <div class="control has-icons-left has-icons-right">
-                                <span class="icon is-small is-left">
-                                    <i>
-                                        <fa-icon [icon]="faFolderOpen"></fa-icon>
-                                    </i>
-                                </span>
-                                <div class="select is-fullwidth">
-                                    <select formControlName="cuenta">
-                                        <option>Seleccione</option>
-                                        <option *ngFor="let cuenta of cuentas" [ngValue]="cuenta">
-                                            {{ cuenta.nombre }} ({{ cuenta.nro_cta }})
-                                        </option>
-                                    </select>
+                <div class="box" style="margin: 5px 5px 10px 5px;">
+                    <div class="columns is-mobile">
+                        <div class="column is-6">
+                            <div class="field">
+                                <label class="label">Cuenta</label>
+                                <div class="control has-icons-left has-icons-right">
+                                    <span class="icon is-small is-left">
+                                        <i>
+                                            <fa-icon [icon]="faFolderOpen"></fa-icon>
+                                        </i>
+                                    </span>
+                                    <div class="select is-fullwidth">
+                                        <select formControlName="cuenta">
+                                            <option>Seleccione</option>
+                                            <option *ngFor="let cuenta of cuentas" [ngValue]="cuenta">
+                                                {{ cuenta.nombre }} ({{ cuenta.nro_cta }})
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <p class="help is-danger"
+                                        *ngIf="movimiento.get('cuenta').invalid && movimiento.get('cuenta').touched">
+                                        Seleccione una cuenta.</p>
                                 </div>
-                                <p class="help is-danger"
-                                    *ngIf="movimiento.get('cuenta').invalid && movimiento.get('cuenta').touched">
-                                    Seleccione una cuenta.</p>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="column is-3">
-                        <div class="field">
-                            <label class="label">Monto</label>
-                            <div class="control has-icons-left">
-                                <span class="icon is-small is-left">
+                        <div class="column is-4">
+                            <div class="field">
+                                <label class="label">Monto</label>
+                                <div class="control has-icons-left">
+                                    <span class="icon is-small is-left">
+                                        <i>
+                                            <fa-icon [icon]="faDollarSign"></fa-icon>
+                                        </i>
+                                    </span>
+                                    <input class="input" type="number" min=1 formControlName="monto"
+                                        placeholder="Ingrese">
+                                    <p class="help is-danger"
+                                        *ngIf="movimiento.get('monto').invalid && movimiento.get('monto').touched">
+                                        Ingrese un monto.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="column is-2" style="position: relative; top: 30px;" *ngIf="i > 1">
+                            <button class="button is-danger is-outlined" type="button" (click)="quitarMovimiento(i)">
+                                <span class="icon is-medium">
                                     <i>
-                                        <fa-icon [icon]="faDollarSign"></fa-icon>
+                                        <fa-icon [icon]="faMinus"></fa-icon>
                                     </i>
                                 </span>
-                                <input class="input" type="number" min=1 formControlName="monto" placeholder="Ingrese">
-                                <p class="help is-danger"
-                                    *ngIf="movimiento.get('monto').invalid && movimiento.get('monto').touched">
-                                    Ingrese un monto.</p>
-                            </div>
+                            </button>
                         </div>
                     </div>
 
-                    <div class="column is-2">
-                        <div class="field">
-                            <label class="label">Tipo</label>
-                            <div *ngFor="let tipo_mov of tipos">
-                                <label class="radio">
-                                    <input name="tipo_mov" [value]="tipo_mov" [attr.name]="tipo_mov + i" type="radio"
-                                        formControlName="tipo_mov" required>
-                                    {{ tipo_mov }}
-                                </label>
+                    <div class="columns is-mobile">
+
+                        <div class="column is-9">
+                            <div class="field">
+                                <label class="label">Detalle</label>
+                                <input type="text" class="input" formControlName="detalle"
+                                    placeholder="Breve desc. del movimiento">
                             </div>
                         </div>
-                    </div>
 
-                    <div class="column is-2" style="position: relative; top: 30px;" *ngIf="i > 1">
-                        <button class="button is-danger is-outlined" type="button" (click)="quitarMovimiento(i)">
-                            <span class="icon is-medium">
-                                <i>
-                                    <fa-icon [icon]="faMinus"></fa-icon>
-                                </i>
-                            </span>
-                        </button>
+                        <div class="column is-3">
+                            <div class="field">
+                                <label class="label">Tipo</label>
+                                <div *ngFor="let tipo_mov of tipos">
+                                    <label class="radio">
+                                        <input name="tipo_mov" [value]="tipo_mov" [attr.name]="tipo_mov + i"
+                                            type="radio" formControlName="tipo_mov" required>
+                                        {{ tipo_mov }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

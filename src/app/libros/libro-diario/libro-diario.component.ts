@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { AsientoService } from 'src/app/asiento.service';
 import { Asiento, Movimiento } from 'src/app/asiento/asiento.model';
 import { Cuenta } from 'src/app/cuenta/cuenta.model';
+import { formatCurrency } from '@angular/common';
 
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
@@ -80,4 +81,9 @@ export class LibroDiarioComponent implements OnInit {
   public convertirEnString(obj: any) {
     return JSON.stringify(obj);
   }
+
+  public formatearMoneda(valor: number) {
+    return formatCurrency(valor, 'esAR', '$', 'ARS');
+  }
+
 }

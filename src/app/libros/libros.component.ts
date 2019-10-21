@@ -7,13 +7,11 @@ import { Component } from '@angular/core';
 
     <hr>
 
-    <div class="tabs is-boxed">
-        <nav>
+    <div class="tabs is-boxed is-fullwidth is-medium">
         <ul>
-            <li><a routerLink='libroDiario'>Libro diario</a></li>
-            <li><a routerLink='libroMayor'>Libro mayor</a></li>
+            <li [ngClass]="{'is-active': checkTab('diario')}" (click)="setTab('diario')" ><a routerLink='libroDiario'>Libro diario</a></li>
+            <li [ngClass]="{'is-active': checkTab('mayor')}" (click)="setTab('mayor')"><a routerLink='libroMayor'>Libro mayor</a></li>
         </ul>
-        </nav>
     </div>
 
     <router-outlet></router-outlet>`,
@@ -21,6 +19,18 @@ import { Component } from '@angular/core';
 })
 export class LibrosComponent {
 
+  // Esta variable guarda el tab seleccionado para aplicarle la clase 'is-active'
+  private seleccionado: string;
+
   constructor() { }
+
+  setTab(opcion: string) {
+    this.seleccionado = opcion;
+  }
+
+  checkTab(opcion: string): boolean {
+    return this.seleccionado === opcion;
+  }
+
 
 }

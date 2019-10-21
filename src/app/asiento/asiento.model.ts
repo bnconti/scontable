@@ -13,6 +13,7 @@ export interface Movimiento {
     nombre: string;
     monto: number;
     tipo_mov: string;
+    detalle: string;
     cuenta?: Cuenta;
 }
 
@@ -23,5 +24,6 @@ export interface MovMayor {
 
 export interface CuentaMayor {
     nombre_cta: string;
+    nro_cta: number;
     movimientos: MovMayor[];
 }

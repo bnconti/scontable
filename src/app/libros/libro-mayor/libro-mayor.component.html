@@ -1,39 +1,74 @@
-<!--
-<ng-container *ngFor="let cuenta of getMovimientos()">
-    <li>{{ cuenta.nombre_cta }}</li>
-    <ng-container *ngFor="let mov of cuenta.movimientos; let i = index;">
-        <li>{{ i }}: {{ mov.tipo_mov }} {{ mov.monto }} </li>
-    </ng-container>
-</ng-container>
--->
 <!--Buscador de cuentas-->
-<input type="text" [(ngModel)]="cta" placeholder="Ingrese la cuenta a buscar" class="input is-medium">
-<div class="table-container is-scrollable">    
-    <table  class="table is-fullwidth is-hoverable is-bordered">
-        <thead>
-            <tr>
-                <th class="is-narrow has-text-centered">CUENTAS</th>
-                <th class="is-narrow has-text-centered"><abbr title="Debe"></abbr>D</th>
-                <th class="is-narrow has-text-centered"><abbr title="Haber"></abbr>H</th>
-            </tr>
-        </thead>
-        <tbody>
-            <ng-container *ngFor="let cuenta of getMovimientos() |filter:cta">
-                <tr> 
-                    <td class="has-text-centered" [attr.rowspan]="cuenta.movimientos.length+1" class="is-vertical-center">
-                        {{ cuenta.nombre_cta}}</td>
+<div class="box">
+    <input type="text" [(ngModel)]="cta" placeholder="Ingrese la cuenta a buscar" class="input is-medium">
+</div>
+
+<div class="table-container is-scrollable">
+    <ng-container *ngFor="let cuenta of getMovimientos() | filter:cta">
+        <table class="table is-fullwidth is-bordered is-hoverable" #dataPdf>
+            <thead>
+                <tr>
+                    <th colspan="5" class="has-text-centered has-background-success has-text-white is-size-5">
+                        ({{ cuenta.nro_cta }})
+                        {{ cuenta.nombre_cta}}</th>
                 </tr>
-                <ng-container *ngFor="let mov of cuenta.movimientos; let i = index;">
+                <tr>
+                    <th class="is-narrow has-text-centered"><abbr title="Número de asiento">N.º</abbr></th>
+                    <th class="is-narrow has-text-centered">FECHA</th>
+                    <th class="has-text-centered">DETALLE</th>
+                    <th class="has-text-centered" style="width: 15%;"><abbr title="Debe">D</abbr></th>
+                    <th class="has-text-centered" style="width: 15%;"><abbr title="Haber">H</abbr></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <ng-container *ngFor="let mov of cuenta.movimientos">
                     <tr>
-                            <td class="has-text-centered"
-                            [innerText]="mov.tipo_mov === 'Debe' ? (mov.monto | currency:'ARS':'symbol':'1.2-2':'esAR') : ''">
-                            </td>
-                            <td class="has-text-centered"
-                            [innerText]="mov.tipo_mov === 'Haber' ? (mov.monto | currency:'ARS':'symbol':'1.2-2':'esAR') : ''">
-                            </td>
+                        <td>{{ mov.nro_asiento }}</td>
+                        <td>{{ mov.fecha | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{ mov.detalle }}</td>
+                        <td class="has-text-right">
+                            <ng-template [ngIf]="mov.tipo_mov === 'Debe'">
+                                {{ formatearMoneda(mov.monto) }}
+                            </ng-template>
+                        </td>
+                        <td class="has-text-right">
+                            <ng-template [ngIf]="mov.tipo_mov === 'Haber'">
+                                {{ formatearMoneda(mov.monto) }}
+                            </ng-template>
+                        </td>
                     </tr>
                 </ng-container>
-            </ng-container>
-        </tbody>
-    </table>
+
+                {{ calcularSubtotales(cuenta.movimientos) }}
+
+                <tr>
+                    <td class="has-text-weight-bold has-text-right" colspan="3">SUBTOTAL</td>
+                    <td class="has-text-right">
+                        {{ getDebe() }}
+                    </td>
+                    <td class="has-text-right">
+                        {{ getHaber() }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="has-text-weight-bold has-text-right" colspan="3">TOTAL</td>
+                    <td class="has-text-weight-bold has-text-right" colspan="2">
+                        {{ getTotal() }}
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+    </ng-container>
 </div>
+
+<button class="button is-danger is-small is-outlined" (click)="generarPdf()">
+    <span class="icon is-small is-left">
+        <i>
+            <fa-icon [icon]="faFilePdf"></fa-icon>
+        </i>
+    </span>
+    <span>Exportar como PDF</span>
+</button>

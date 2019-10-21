@@ -25,7 +25,8 @@ CREATE TABLE movimiento (
     PRIMARY KEY(idmovimiento, idasiento),
     idcuenta INT NOT NULL REFERENCES cuenta(idcuenta),
     monto NUMERIC NOT NULL,
-    tipo_mov VARCHAR(45) NOT NULL
+    tipo_mov VARCHAR(45) NOT NULL,
+	detalle VARCHAR NULL
 );
 
 INSERT INTO usuario(
@@ -57,21 +58,29 @@ INSERT INTO asiento(
 	VALUES (1, '14-09-2019');
 
 INSERT INTO movimiento(
-	idasiento, idcuenta, monto, tipo_mov)
-	VALUES (1, 1, 2300, 'Debe');
+	idasiento, idcuenta, monto, tipo_mov, detalle)
+	VALUES (1, 1, 2300, 'Debe', 'Test mov. debe Caja Chica');
 
 INSERT INTO movimiento(
-	idasiento, idcuenta, monto, tipo_mov)
-	VALUES (1, 2, 1000, 'Haber');
+	idasiento, idcuenta, monto, tipo_mov, detalle)
+	VALUES (1, 2, 1000, 'Haber', 'Test mov. haber Gastos Administrativos');
 
 INSERT INTO movimiento(
-	idasiento, idcuenta, monto, tipo_mov)
-	VALUES (1, 3, 1300, 'Haber');
+	idasiento, idcuenta, monto, tipo_mov, detalle)
+	VALUES (1, 3, 1300, 'Haber', 'Test mov. haber Banco Nación');
 
 INSERT INTO movimiento(
-	idasiento, idcuenta, monto, tipo_mov)
-	VALUES (2, 1, 2000, 'Haber');
+	idasiento, idcuenta, monto, tipo_mov, detalle)
+	VALUES (2, 1, 2000, 'Haber', 'Test mov. haber Caja Chica');
 
 INSERT INTO movimiento(
-	idasiento, idcuenta, monto, tipo_mov)
-	VALUES (2, 4, 2000, 'Debe');
+	idasiento, idcuenta, monto, tipo_mov, detalle)
+	VALUES (2, 2, 1200, 'Haber', 'Test mov. haber Gastos Administrativos');
+
+INSERT INTO movimiento(
+	idasiento, idcuenta, monto, tipo_mov, detalle)
+	VALUES (2, 3, 1200, 'Debe', 'Test mov. debe Banco Nación');
+
+INSERT INTO movimiento(
+	idasiento, idcuenta, monto, tipo_mov, detalle)
+	VALUES (2, 4, 2000, 'Debe', 'Test mov. debe Deudores');

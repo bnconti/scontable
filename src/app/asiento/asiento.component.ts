@@ -59,6 +59,7 @@ export class AsientoComponent implements OnInit {
       monto: ['', [Validators.required]],
       tipo_mov: ['', [Validators.required]],
       cuenta: ['Seleccione', [Validators.required, this.validarValorCuenta]],
+      detalle: ['']
     });
   }
 
@@ -101,6 +102,10 @@ export class AsientoComponent implements OnInit {
       }
     }
     return total !== 0 ? { asientoDesbalanceado: true } : null;
+  }
+
+  nuevoId() {
+    this.asientoService.nuevoId();
   }
 
 }

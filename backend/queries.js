@@ -32,7 +32,7 @@ const getAsientos = (request, response) => {
     const query =
         `SELECT a.idasiento, a.nro_asiento, to_json(a.fecha) AS fecha, a.idusuario,
         (SELECT json_agg(json_build_object('monto', m.monto, 
-        'tipo_mov', m.tipo_mov, 'nombre', c.nombre, 'nro_cta', c.nro_cta))
+        'tipo_mov', m.tipo_mov, 'detalle', m.detalle, 'nombre', c.nombre, 'nro_cta', c.nro_cta))
         FROM movimiento AS m
         INNER JOIN cuenta AS c on m.idcuenta = c.idcuenta
         WHERE m.idasiento = a.idasiento ) AS movimientos
@@ -49,7 +49,7 @@ const getAsientos = (request, response) => {
 
 const crearAsiento = (request, response) => {
     const queryAsiento = 'INSERT INTO asiento (idusuario, fecha) VALUES ($1, $2) RETURNING idasiento';
-    const queryMov = 'INSERT INTO movimiento (idasiento, idcuenta, monto, tipo_mov) VALUES ($1, $2, $3, $4)';
+    const queryMov = 'INSERT INTO movimiento (idasiento, idcuenta, monto, tipo_mov, detalle) VALUES ($1, $2, $3, $4, $5)';
     const { idusuario, fecha, movimientos } = request.body;
 
     pool.query(queryAsiento, [idusuario, fecha], (err, result) => {
@@ -58,7 +58,7 @@ const crearAsiento = (request, response) => {
             const idasiento = result.rows[0].idasiento;
             movimientos.forEach(function (movimiento) {
                 let idcuenta = movimiento.cuenta.idcuenta;
-                pool.query(queryMov, [idasiento, idcuenta, movimiento.monto, movimiento.tipo_mov], err => {
+                pool.query(queryMov, [idasiento, idcuenta, movimiento.monto, movimiento.tipo_mov, movimiento.detalle], err => {
                     if (err) throw err;
                 });
             });
@@ -69,9 +69,10 @@ const crearAsiento = (request, response) => {
 
 const getMovimientosPorCuenta = (request, response) => {
     const query =
-        `SELECT c.nombre AS nombre_cta, c.nro_cta, json_agg(json_build_object('monto', m.monto, 'tipo_mov', m.tipo_mov)) AS movimientos
+        `SELECT c.nombre AS nombre_cta, c.nro_cta, json_agg(json_build_object('fecha', a.fecha, 'nro_asiento', a.nro_asiento, 'monto', m.monto, 'tipo_mov', m.tipo_mov, 'detalle', m.detalle)) AS movimientos
         FROM cuenta c
-        INNER JOIN movimiento m ON c.idcuenta = m.idcuenta
+        INNER JOIN movimiento AS m ON c.idcuenta = m.idcuenta
+        INNER JOIN asiento AS a ON a.idasiento = m.idasiento
         GROUP BY c.nombre, c.nro_cta`;
 
     pool.query(query, (error, results) => {

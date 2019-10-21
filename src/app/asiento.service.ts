@@ -3,7 +3,6 @@ import { Subject } from 'rxjs';
 import { Asiento, Movimiento, CuentaMayor } from './asiento/asiento.model';
 import { HttpClient } from '@angular/common/http';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -23,6 +22,7 @@ export class AsientoService {
       .subscribe((res) => {
         this.asientos = res;
         this.actualizacionAsientos.next([...this.asientos]);
+        console.log(this.asientos);
       });
     return this.asientos;
   }
@@ -49,8 +49,10 @@ export class AsientoService {
     this.http.post<{ asientoNuevo: Asiento }>('http://localhost:3000/asientos', asiento)
       .subscribe(() => {
         asiento.movimientos.forEach(movimiento => {
+          console.log(movimiento);
           movimiento.nombre = movimiento.cuenta.nombre;
           movimiento.nro_cta = movimiento.cuenta.nro_cta;
+          // movimiento.detalle = movimiento.cuenta.detalle;
           delete movimiento.cuenta;
         });
         this.asientos.push(asiento);
@@ -60,6 +62,8 @@ export class AsientoService {
   }
 
   nuevoId(): number {
+    console.log(this.asientos, this.asientos.length);
+
     return this.asientos[this.asientos.length - 1].idasiento + 1;
   }
 }
