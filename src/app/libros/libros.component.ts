@@ -3,11 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-libros',
   template: `
-    <h1 class="title">Sistema Contable v1.0</h1>
-
-    <hr>
-
-    <div class="tabs is-boxed is-fullwidth is-medium">
+   <div class="tabs is-boxed is-fullwidth is-medium">
         <ul>
             <li [ngClass]="{'is-active': checkTab('diario')}" (click)="setTab('diario')" ><a routerLink='libroDiario'>Libro diario</a></li>
             <li [ngClass]="{'is-active': checkTab('mayor')}" (click)="setTab('mayor')"><a routerLink='libroMayor'>Libro mayor</a></li>

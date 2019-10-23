@@ -35,19 +35,19 @@ INSERT INTO usuario(
 
 INSERT INTO cuenta(
 	nro_cta, nombre, tipo_cta)
-	VALUES (1001, 'Caja chica', 'Pasivo');
+	VALUES (1001, 'Caja chica', 'Activo');
 
 INSERT INTO cuenta(
 	nro_cta, nombre, tipo_cta)
-	VALUES (1002, 'Gastos administrativos', 'Pasivo');
+	VALUES (2002, 'Gastos administrativos', 'Pasivo');
 
 INSERT INTO cuenta(
 	nro_cta, nombre, tipo_cta)
-	VALUES (2001, 'Banco Nación', 'Activo');
+	VALUES (1002, 'Banco Nación', 'Activo');
 
 INSERT INTO cuenta(
 	nro_cta, nombre, tipo_cta)  
-	VALUES (2002, 'Deudores', 'Activo');
+	VALUES (2003, 'Deudores', 'Activo');
 
 INSERT INTO asiento(
 	idusuario, fecha)
